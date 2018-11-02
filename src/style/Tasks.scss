@@ -1,0 +1,100 @@
+.top-navigation {
+  margin: 10px 0;
+  div {
+    display: inline-block;
+    margin: 0 10px;
+    a {
+      color: #404040;
+    }
+  }
+  .omnibox {
+    input {
+      width: 680px;
+      outline: none;
+      padding: 7px 10px 9px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      border: 1px solid #eaeaea;
+    }
+    .fa-star {
+      position: absolute;
+      right: 34px;
+      top: 18px;
+    }
+  }
+}
+
+.toolbar {
+  background: #e6e6e6;
+
+  #nav-body-views {
+    height: 100vh;
+  }
+
+  #nav-body-tabs {
+    border: none;
+    background: #d7d7d7;
+    min-height: auto;
+
+    #nav-tabs-add {
+      fill: #929292;
+      margin-left: 10px;
+    }
+
+    .nav-icons {
+      width: 16px;
+      height: 16px;
+    }
+
+    .nav-tabs-tab {
+      min-width: 60px;
+      width: 180px;
+      min-height: 20px;
+      padding: 5px 10px;
+      font-size: 13px;
+      border-bottom: 1px solid #ababab;
+
+      &.active {
+        background: #eeeeee;
+        border: 1px solid #ababab;
+        border-bottom: 1px solid #eeeeee;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+      }
+
+      .nav-tabs-title {
+        font-style: normal;
+        margin-left: 6px;
+      }
+    }
+  }
+
+  /* Navigation Controls */
+  #nav-body-ctrls {
+    background: #e8e8e8;
+    padding: 2px;
+
+    a {
+      color: #000;
+    }
+
+    i {
+      padding: 0 5px;
+      cursor: pointer;
+
+      &:hover {
+        fill: #75a7da;
+      }
+    }
+
+    #nav-ctrls-url {
+      border: none;
+      border-radius: 10px;
+      padding: 7px 10px;
+      height: auto;
+      font-size: 13px;
+      margin: 0 5px;
+      outline: none;
+    }
+  }
+}
