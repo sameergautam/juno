@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './../style/Tasks.scss';
+import './../style/Tasks.css';
 
 
 class Tasks extends React.Component {
