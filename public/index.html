@@ -16,7 +16,8 @@
     <div id="root"></div>
   </body>
   <script type="text/javascript">
+    const url = document.querySelector('.toolbar').getAttribute('data-url');
     const enav = new (require('electron-navigation'))();
-    enav.newTab('https://www.expensify.com/')
+    enav.newTab(url);
   </script>
 </html>

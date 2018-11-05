@@ -12,7 +12,7 @@ class App extends React.Component {
           <Route exact={true} path="/" component={Login}  />
           <Route path="/settings" component={Settings} />
           <Route path="/home" component={Home} />
-          <Route path="/tasks" component={Tasks} />
+          <Route path="/tasks" render={() => <Tasks dataUrl="abc.com" />}/>
         </div>
       </Router>
     );
