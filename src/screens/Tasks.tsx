@@ -1,11 +1,14 @@
 import * as React from 'react';
 import './../style/Tasks.css';
 
+class Tasks extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+  }
 
-class Tasks extends React.Component {
   public render() {
     return (
-      <div className="toolbar">
+      <div className="toolbar" data-url={this.props.dataUrl}>
         <div id="nav-body-tabs" />
         <div id="nav-body-ctrls" />
         <div id="nav-body-views" />
