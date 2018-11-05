@@ -2,7 +2,7 @@ import * as React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 // import { withRouter } from 'react-router';
 import { Home, Login, Settings, Tasks } from './screens';
-import './style/index.css';
+import './style/index.scss';
 
 class App extends React.Component {
   public render() {
