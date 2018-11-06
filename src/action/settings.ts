@@ -1,12 +1,15 @@
-// import axios from 'axios';
+import axios from 'axios';
 
-export const fetchSettings = () =>
-  (dispatch: any) => 
-    dispatch({ type: 'FETCH_SETTINGS', payload:  { settings: { name: "Aneeta Sharma" } } });
-    // return axios.get('/report/holidays')
-    //   .then((response) => {
-    //     this.setState({ settings: response.data });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+export const fetchSettings = () => 
+    // dispatch({ type: 'FETCH_SETTINGS', payload:  { settings: { name: "Aneeta Sharma" } } });
+    (dispatch: any) =>
+      axios.get('http://localhost:8000/hello')
+        .then((response) => {
+          dispatch({
+            type: 'FETCH_SETTINGS',
+            payload: response.data
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });

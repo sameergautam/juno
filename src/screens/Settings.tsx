@@ -25,7 +25,10 @@ export class Settings extends React.Component<any, any> {
   }
 }
 
-const mapStateToProps = (store: any) => ({
-  settings: store.settingsState.settings
-});
+const mapStateToProps = (store: any) => {
+  console.log(store.settingsState);
+  return ({
+    settings: store.settingsState.settings
+  });
+}
 export default connect(mapStateToProps)(Settings);
