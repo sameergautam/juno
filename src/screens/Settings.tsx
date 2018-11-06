@@ -8,7 +8,7 @@ export class Settings extends React.Component<any, any> {
     super(props);
   }
 
-  public componentWillMount() {
+  public componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchSettings());
   }
