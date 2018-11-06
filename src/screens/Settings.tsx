@@ -1,31 +1,20 @@
 // import axios from 'axios';
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { fetchSettings } from './../action/settings';
 
-class Settings extends React.Component<any, any> {
+export class Settings extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
-    this.state = {
-      settings: {}
-    };
   }
 
   public componentWillMount() {
-    this.fetchSettings();
-  }
-
-  public fetchSettings() {
-    // return axios.get('/report/holidays')
-    //   .then((response) => {
-    //     this.setState({ settings: response.data });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    return this.setState({ settings: { name: "Aneeta Sharma" } });
+    const { dispatch } = this.props;
+    dispatch(fetchSettings());
   }
 
   public render() {
-    const { settings } = this.state;
+    const { settings } = this.props;
 
     return (
       <div>
@@ -36,4 +25,7 @@ class Settings extends React.Component<any, any> {
   }
 }
 
-export default Settings;
+const mapStateToProps = (store: any) => ({
+  settings: store.settingsState.settings
+});
+export default connect(mapStateToProps)(Settings);
