@@ -17,7 +17,7 @@ class Home extends React.Component<any, any> {
       <div className="wrapper">
         <ul className="nav">
           <button onClick={this.renderTasks} title="Tasks"><i className="fas fa-tasks" /></button>
-          <Link to="#" title="Settings"><i className="fas fa-cog" /></Link>
+          <Link to="/settings" title="Settings"><i className="fas fa-cog" /></Link>
           <Link to="#" title="Edit Profile"><i className="fas fa-user" /></Link>
           <Link to="#" title="Notifications"><i className="fas fa-bell" /></Link>
           <Link to="/" title="Log Out"><i className="fas fa-sign-out-alt" /></Link>
