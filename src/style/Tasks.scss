@@ -187,3 +187,37 @@
     }
   }
 }
+
+#navigation {
+  background: #e8e8e8;
+  padding: 0 5px;
+
+  > div {
+    display: inline-block;
+    font-size: 15px;
+
+    &#back, &#forward, &#refresh {
+      border-radius: 20px;
+      padding: 7px 9px;
+      transition: 0.1s linear;
+
+      &:hover {
+        background: #dbdbdb;
+      }
+    }
+  }
+
+  #omnibox {
+    width: 90%;
+    padding: 5px;
+
+    input {
+      outline: none;
+      padding: 6px 7px 6px 15px;
+      border-radius: 20px;
+      border: none;
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+}
