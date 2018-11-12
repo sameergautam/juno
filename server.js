@@ -15,7 +15,7 @@ server.route({
   },
   config: {
     cors: {
-      origin: ['*'],
+      origin: ['http://localhost:3000'],
       additionalHeaders: ['cache-control', 'x-requested-with']
     }
   },
