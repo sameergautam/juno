@@ -22,12 +22,6 @@ class Home extends React.Component<any, any> {
           <Link to="#" title="Notifications"><i className="fas fa-bell" /></Link>
           <Link to="/" title="Log Out"><i className="fas fa-sign-out-alt" /></Link>
         </ul>
-
-        <div className="main">
-          <div className="left tasks" />
-          <div className="right" />
-          <div className="clear" />
-        </div>
       </div>
     );
   }
