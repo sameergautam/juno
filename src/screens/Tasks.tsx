@@ -75,7 +75,6 @@ class Tasks extends React.Component<any, any> {
             </div>
           </nav>
           <div className="browser-view">
-            {/* <webview id="view" className="page" src={this.state.defaultUrl} autosize></webview> */}
             <WebView
               id="view"
               className="page"
