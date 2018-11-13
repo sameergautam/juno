@@ -11,7 +11,7 @@ server.route({
   method:'GET',
   path:'/hello',
   handler:function(request,h) {
-    return { settings: { name: 'Gaurab KC' } };
+    return { settings: { FirstName: 'ABC DEF' } };
   },
   config: {
     cors: {

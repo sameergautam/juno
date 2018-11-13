@@ -19,14 +19,13 @@ export class Settings extends React.Component<any, any> {
     return (
       <div>
         <h2>Settings</h2>
-        Name: { settings.name }
+        Name: { settings.FirstName }
       </div>
     );
   }
 }
 
 const mapStateToProps = (store: any) => {
-  console.log(store.settingsState);
   return ({
     settings: store.settingsState.settings
   });
