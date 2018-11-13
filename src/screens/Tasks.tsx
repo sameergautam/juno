@@ -29,7 +29,7 @@ class Tasks extends React.Component<any, any> {
     return (
       <div>
         <div className="topbar">
-          <div className="logo"><img src="cf-logo-header.png" alt="CloudFactory" /></div>
+          <div className="logo"><a href="/home"><img src="cf-logo-header.png" alt="CloudFactory" /></a></div>
           <div className="title">Dashboard</div>
           <div className="rightNav">
             <div>
