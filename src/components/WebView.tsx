@@ -14,7 +14,7 @@ class WebView extends React.Component<any, any> {
       webViewContainer.innerHTML = `<webview id=${id} className=${className} src=${url} autosize></webview>`;
       const view = webViewContainer.querySelector('webview');
       if(view) {
-        view.addEventListener('did-start-loading', this.props.didFinishLoad);
+        view.addEventListener('did-finish-load', this.props.didFinishLoad);
       };
     }
     

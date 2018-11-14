@@ -1,5 +1,5 @@
 {
-  "name": "juno",
+  "name": "CloudWorkerHub",
   "description": "electron based app",
   "version": "0.1.0",
   "author": "A&G",
@@ -75,12 +75,12 @@
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "compile-mac": "electron-builder -m always --publish=never",
+    "compile-mac": "electron-builder -m -p always --publish=never",
     "compile-win": "electron-builder -w -p always"
   },
   "build": {
     "appId": "com.juno.app",
-    "productName": "Juno",
+    "productName": "Cloud Worker Hub",
     "mac": {
       "icon": "icon.png",
       "target": [
