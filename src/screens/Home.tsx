@@ -4,19 +4,13 @@ import { Link } from 'react-router-dom';
 class Home extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
-    this.renderTasks = this.renderTasks.bind(this);
-  }
-
-  public renderTasks() {
-    this.props.history.push('/tasks');
-    window.location.reload();
   }
 
   public render() {
     return (
       <div className="wrapper">
         <ul className="nav">
-          <button onClick={this.renderTasks} title="Tasks"><i className="fas fa-tasks" /></button>
+          <Link to="/tasks" title="Tasks"><i className="fas fa-tasks" /></Link>
           <Link to="/settings" title="Settings"><i className="fas fa-cog" /></Link>
           <Link to="#" title="Edit Profile"><i className="fas fa-user" /></Link>
           <Link to="#" title="Notifications"><i className="fas fa-bell" /></Link>
