@@ -3,7 +3,7 @@ import axios from 'axios';
 export const fetchSettings = () => 
     // dispatch({ type: 'FETCH_SETTINGS', payload:  { settings: { name: "Aneeta Sharma" } } });
     (dispatch: any) =>
-      axios.get('http://ecs-services-2138927971.us-east-1.elb.amazonaws.com/worker/23816d72-9fda-4abf-ac12-f7cbe57b8b86')
+      axios.get('http://ecs-services-1784001078.us-east-1.elb.amazonaws.com/worker/2d30cdd7-dea8-41f7-9aa7-260ea8f3bfee')
       // axios.get('http://localhost:8000/hello')
         .then((response) => {
           dispatch({
