@@ -46,6 +46,7 @@
     "react-scripts": "2.0.5",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "request-promise": "^4.2.2",
     "resolve": "1.6.0",
     "sass-loader": "^7.1.0",
     "source-map-loader": "^0.2.1",
@@ -83,8 +84,8 @@
     "mac": {
       "icon": "icon.png",
       "target": [
-				"dmg"
-			]
+        "dmg"
+      ]
     }
   },
   "eslintConfig": {

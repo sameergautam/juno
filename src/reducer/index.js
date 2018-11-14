@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import settingsState from './settingsReducer';
+import profileState from './profileReducer';
 
 export default combineReducers({
-  settingsState
+  profileState
 });
