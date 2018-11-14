@@ -2,19 +2,15 @@ import * as React from 'react';
 import './../style/Home.scss';
 import WebView from '../components/WebView';
 import Topbar from './Topbar';
-import { goForward, goBack, reloadUrl, updateUrl } from '../helper';
+import { goForward, goBack, reloadUrl, loadUrl, getWebViewSrc } from '../helper';
 
-class Home extends React.Component<any, any> {
+class Tasks extends React.Component<any, any> {
   constructor(props: any) {
-    console.log('aaaaaaaaaaaaaaa');
     super(props);
     this.state = {
       defaultUrl: 'https://www.google.com',
       omniValue: '',
     }
-    this.handleGoBack = this.handleGoBack.bind(this);
-    this.handleGoForward = this.handleGoForward.bind(this);
-    this.handleReload = this.handleReload.bind(this);
   }
 
   public handleGoBack() {
@@ -29,13 +25,32 @@ class Home extends React.Component<any, any> {
     reloadUrl();
   }
 
-  public handleOmniBoxEnter( evt: React.KeyboardEvent<HTMLInputElement>) {
-    const value = evt.currentTarget.value;
+  public handleOmniBoxEnter(evt: React.KeyboardEvent<HTMLInputElement>) {
+    let value = evt.currentTarget.value;
     if(evt.which === 13) {
-      updateUrl(value);
+      if (value.indexOf('.com') > 0) {
+        let https = value.slice(0, 8).toLowerCase();
+        if (https === 'https://') {
+          loadUrl(value);
+        } else {
+          loadUrl(`https://${value}`);
+        }
+      } else {
+        loadUrl(`https://www.google.com.np/search?q=${value}`)
+      }
     }
+  }
+
+  public handleOmniBoxChange(evt: React.FormEvent<HTMLInputElement>) {
+    const value = evt.currentTarget.value;
     this.setState({
       omniValue: value
+    });
+  }
+
+  public handleWebViewLoad() {
+    this.setState({
+      omniValue: getWebViewSrc()
     })
   }
 
@@ -46,19 +61,21 @@ class Home extends React.Component<any, any> {
         <div className="browser-window">
           <nav id="navigation">
             <div id="back">
-              <i className="fas fa-arrow-left" aria-hidden="true" onClick={this.handleGoBack}></i>
+              <i className="fas fa-arrow-left" aria-hidden="true" onClick={() => this.handleGoBack()}></i>
             </div>
             <div id="forward">
-              <i className="fas fa-arrow-right" aria-hidden="true" onClick={this.handleGoForward}></i>
+              <i className="fas fa-arrow-right" aria-hidden="true" onClick={() => this.handleGoForward()}></i>
             </div>
             <div id="refresh">
-              <i className="fas fa-redo" aria-hidden="true" onClick={this.handleReload}></i>
+              <i className="fas fa-redo" aria-hidden="true" onClick={() => this.handleReload()}></i>
             </div>
             <div id="omnibox">
               <input
                 type="text"
                 id="url"
                 onKeyPress={evt => this.handleOmniBoxEnter(evt)}
+                onChange={evt => this.handleOmniBoxChange(evt)}
+                value={this.state.omniValue}
               />
             </div>
           </nav>
@@ -67,6 +84,7 @@ class Home extends React.Component<any, any> {
               id="view"
               className="page"
               url={this.state.defaultUrl}
+              didFinishLoad={() => this.handleWebViewLoad()}
             />
           </div>
         </div>
@@ -75,4 +93,4 @@ class Home extends React.Component<any, any> {
   }
 }
 
-export default Home;
+export default Tasks;
