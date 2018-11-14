@@ -14,7 +14,13 @@ export const reloadUrl = () => {
   view.reload();
 }
 
-export const updateUrl = (value) => {
+export const loadUrl = (value) => {
   const view = document.getElementById('view');
   view.loadURL(value);
+}
+
+export const getWebViewSrc = () => {
+  const view = document.getElementById('view');
+  return view.src;
+
 }
