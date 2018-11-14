@@ -1,6 +1,8 @@
 {
-  "name": "my-app",
+  "name": "juno",
+  "description": "electron based app",
   "version": "0.1.0",
+  "author": "A&G",
   "private": true,
   "main": "public/electron.js",
   "dependencies": {
@@ -15,11 +17,9 @@
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",
     "concurrently": "^4.0.1",
-    "css-loader": "0.28.7",
+    "css-loader": "1.0.0",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
-    "electron": "^3.0.5",
-    "electron-builder": "^20.28.4",
     "electron-is-dev": "^1.0.1",
     "electron-navigation": "^1.5.8",
     "extract-text-webpack-plugin": "3.0.2",
@@ -69,10 +69,23 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "build-prod": "NODE_ENV=production webpack -p --config ./config/webpack.config.prod.js",
     "test": "node scripts/test.js --env=jsdom",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
+    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "compile-mac": "electron-builder -m always --publish=never",
+    "compile-win": "electron-builder -w -p always"
+  },
+  "build": {
+    "appId": "com.juno.app",
+    "productName": "Juno",
+    "mac": {
+      "icon": "icon.png",
+      "target": [
+				"dmg"
+			]
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -89,7 +102,9 @@
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
     "@types/react-router-dom": "^4.3.1",
-    "typescript": "^3.1.5"
+    "electron-builder": "^20.34.0",
+    "typescript": "^3.1.5",
+    "electron": "^3.0.5"
   },
   "jest": {
     "collectCoverageFrom": [
