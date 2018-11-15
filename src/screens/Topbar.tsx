@@ -10,7 +10,7 @@ class Topbar extends React.Component<any, any> {
   public render() {
     return (
       <div className="topbar">
-        <div className="logo"><Link to="/home"><img src="cf-logo-header.png" alt="CloudFactory" /></Link></div>
+        <div className="logo"><Link to="/home" title="Home"><img src="cf-logo-header.png" alt="CloudFactory" /></Link></div>
         <div className="title">{this.props.title}</div>
         <div className="rightNav">
           <div>
@@ -22,6 +22,7 @@ class Topbar extends React.Component<any, any> {
           </div>
           <div><i className="fas fa-bell" /></div>
           <div><Link to="/profile"><i className="fas fa-user" /></Link></div>
+          <div><Link to="/"><i className="fas fa-sign-out-alt" /></Link></div>
         </div>
       </div>
     );
