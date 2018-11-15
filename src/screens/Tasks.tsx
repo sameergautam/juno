@@ -26,10 +26,10 @@ class Home extends React.Component<any, any> {
   }
 
   public handleOmniBoxEnter(evt: React.KeyboardEvent<HTMLInputElement>) {
-    let value = evt.currentTarget.value;
+    const value = evt.currentTarget.value;
     if(evt.which === 13) {
       if (value.indexOf('.com') > 0) {
-        let https = value.slice(0, 8).toLowerCase();
+        const https = value.slice(0, 8).toLowerCase();
         if (https === 'https://') {
           loadUrl(value);
         } else {
@@ -61,13 +61,13 @@ class Home extends React.Component<any, any> {
         <div className="browser-window">
           <nav id="navigation">
             <div id="back">
-              <i className="fas fa-arrow-left" aria-hidden="true" onClick={() => this.handleGoBack()}></i>
+              <i className="fas fa-arrow-left" aria-hidden="true" onClick={() => this.handleGoBack()} />
             </div>
             <div id="forward">
-              <i className="fas fa-arrow-right" aria-hidden="true" onClick={() => this.handleGoForward()}></i>
+              <i className="fas fa-arrow-right" aria-hidden="true" onClick={() => this.handleGoForward()} />
             </div>
             <div id="refresh">
-              <i className="fas fa-redo" aria-hidden="true" onClick={() => this.handleReload()}></i>
+              <i className="fas fa-redo" aria-hidden="true" onClick={() => this.handleReload()} />
             </div>
             <div id="omnibox">
               <input
