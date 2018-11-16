@@ -12,7 +12,6 @@ server.route({
   method:'GET',
   path:'/hello',
   handler:function(request,h) {
-    console.log(request);
     return { settings: { FirstName: 'ABC DEF' } };
   },
   config: {
@@ -41,8 +40,6 @@ server.route({
     .catch (function (err) {
       console.log('ERROR:' + err);
     })
-    .finally( function (){
-    });
     return data1;
   }
 });

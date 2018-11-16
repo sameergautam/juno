@@ -9,6 +9,15 @@
   },
   "defaultSeverity": "warning",
   "rules": {
-    "no-console": false
+    "no-console": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "jsx-no-lambda": false
+  },
+  "jsRules": {
+    "no-console": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "jsx-no-lambda": false
   }
 }

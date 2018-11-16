@@ -16,7 +16,7 @@ class Topbar extends React.Component<any, any> {
           <div>
           <label className="switch">
             <input type="checkbox" />
-            <span className="slider round"></span>
+            <span className="slider round" />
           </label>
           <span>Not Working</span>
           </div>

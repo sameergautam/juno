@@ -38,10 +38,10 @@ class Home extends React.Component<any, any> {
   }
 
   public handleOmniBoxEnter(evt: React.KeyboardEvent<HTMLInputElement>) {
-    let value = evt.currentTarget.value;
+    const value = evt.currentTarget.value;
     if(evt.which === 13) {
       if (value.indexOf('.com') > 0) {
-        let https = value.slice(0, 8).toLowerCase();
+        const https = value.slice(0, 8).toLowerCase();
         if (https === 'https://') {
           loadUrl(value);
         } else {
