@@ -75,6 +75,7 @@
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-dev-win": "concurrently \"SET BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "compile-mac": "npm run build && electron-builder -m -p always --publish=never",
     "compile-win": "npm run build && electron-builder -w -p always"
   },
