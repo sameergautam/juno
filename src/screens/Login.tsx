@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './../style/App.scss';
+// import axios from 'axios';
 
 class Login extends React.Component<any, any> {
   constructor(props: any) {
@@ -9,6 +10,16 @@ class Login extends React.Component<any, any> {
 
   public logUser() {
     this.props.history.push('/home');
+    // axios.post('http://localhost:8000/sign_in', { 
+    //   email: 'milap@cf.com',
+    //   password: 'Kathmandu09@'
+    //  })
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }
 
   public render() {
