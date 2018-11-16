@@ -9,5 +9,10 @@
 
   .name {
     font-size: 25px;
+
+    &.start-work a{
+      color: #404040;
+      text-decoration: none;
+    }
   }
 }

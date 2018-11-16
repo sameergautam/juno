@@ -100,7 +100,7 @@
 }
 
 webview {
-  height: 100vh;
+  height: 85vh;
 }
 
 .topbar {
@@ -123,12 +123,27 @@ webview {
     > div {
       display: inline-block;
       padding: 20px;
+      cursor: pointer;
+    }
+
+    a {
+      color: #404040;
+      padding: 8px 10px;
+      margin: 0 10px;
+      border-radius: 20px;
+      transition: 0.1s linear;
+
+      &:hover {
+        color: #fff;
+        background: #5199e4;
+      }
     }
   }
 
   .switch {
     position: relative;
     display: inline-block;
+    visibility: hidden;
     width: 35px;
     height: 16px;
     top: 1px;
@@ -237,3 +252,5 @@ webview {
     }
   }
 }
+
+

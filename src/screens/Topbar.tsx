@@ -18,11 +18,11 @@ class Topbar extends React.Component<any, any> {
             <input type="checkbox" />
             <span className="slider round" />
           </label>
-          <span>Not Working</span>
+          <span style={{display: 'none'}}>Not Working</span>
           </div>
-          <div><i className="fas fa-bell" /></div>
-          <div><Link to="/profile"><i className="fas fa-user" /></Link></div>
-          <div><Link to="/"><i className="fas fa-sign-out-alt" /></Link></div>
+          <Link to="#" className="Notifications"><i className="fas fa-bell" /></Link>
+          <Link to="/profile" className="Profile"><i className="fas fa-user" /></Link>
+          <Link to="/" className="Sign Out"><i className="fas fa-sign-out-alt" /></Link>
         </div>
       </div>
     );
