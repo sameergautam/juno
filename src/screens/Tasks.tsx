@@ -1,8 +1,8 @@
 import * as React from 'react';
-import './../style/Home.scss';
+import './../style/Tasks.scss';
 import WebView from '../components/WebView';
 import Topbar from './Topbar';
-import { goForward, goBack, reloadUrl, loadUrl, getWebViewSrc } from '../helper';
+import { goForward, goBack, reloadUrl, loadUrl, getWebViewSrc, viewCanGoBack, viewCanGoForward } from '../helper';
 
 class Home extends React.Component<any, any> {
   constructor(props: any) {
@@ -10,18 +10,30 @@ class Home extends React.Component<any, any> {
     this.state = {
       defaultUrl: 'https://www.google.com',
       omniValue: '',
+      isBackBtnActive: false,
+      isForwardBtnActive: false,
+      isPageLoading: true,
     }
   }
 
   public handleGoBack() {
+    this.setState({
+      isPageLoading: true
+    });
     goBack();
   }
 
   public handleGoForward() {
+    this.setState({
+      isPageLoading: true
+    });
     goForward();
   }
 
   public handleReload() {
+    this.setState({
+      isPageLoading: true
+    });
     reloadUrl();
   }
 
@@ -38,20 +50,26 @@ class Home extends React.Component<any, any> {
       } else {
         loadUrl(`https://www.google.com.np/search?q=${value}`)
       }
+      this.setState({
+        isPageLoading: true
+      });
     }
   }
 
   public handleOmniBoxChange(evt: React.FormEvent<HTMLInputElement>) {
     const value = evt.currentTarget.value;
     this.setState({
-      omniValue: value
+      omniValue: value,
     });
   }
 
   public handleWebViewLoad() {
     this.setState({
-      omniValue: getWebViewSrc()
-    })
+      isBackBtnActive: viewCanGoBack(),
+      isForwardBtnActive: viewCanGoForward(),
+      omniValue: getWebViewSrc(),
+      isPageLoading: false,
+    });
   }
 
   public render() {
@@ -61,13 +79,13 @@ class Home extends React.Component<any, any> {
         <div className="browser-window">
           <nav id="navigation">
             <div id="back">
-              <i className="fas fa-arrow-left" aria-hidden="true" onClick={() => this.handleGoBack()}></i>
+              <i className={`fas fa-arrow-left ${this.state.isBackBtnActive ? 'active' : ''}`} aria-hidden="true" onClick={() => this.handleGoBack()}></i>
             </div>
             <div id="forward">
-              <i className="fas fa-arrow-right" aria-hidden="true" onClick={() => this.handleGoForward()}></i>
+              <i className={`fas fa-arrow-right ${this.state.isForwardBtnActive ? 'active' : ''}`} aria-hidden="true" onClick={() => this.handleGoForward()}></i>
             </div>
             <div id="refresh">
-              <i className="fas fa-redo" aria-hidden="true" onClick={() => this.handleReload()}></i>
+              <i className={`fas fa-redo active ${this.state.isPageLoading ? 'load' : ''}`} aria-hidden="true" onClick={() => this.handleReload()}></i>
             </div>
             <div id="omnibox">
               <input
