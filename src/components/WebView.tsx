@@ -23,7 +23,7 @@ class WebView extends React.Component<any, any> {
   }
   
   public render() {
-    return <div ref={this.container} className="browser-view" />;
+    return <div ref={this.container} />;
   }
 }
 

@@ -12,7 +12,6 @@ class App extends React.Component {
   // };
   
   public render() {
-    console.log(window.location.href);
     return (
       <Router>
         <div>

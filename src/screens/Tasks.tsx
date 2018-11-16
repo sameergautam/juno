@@ -6,28 +6,40 @@ import TabContent from '../components/TabContent';
 class Tasks extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
+    this.state = {
+      workUrls: ['https://ibotta.com', 'https://expensify.com', 'https://youtube.com'],
+      activeKey: 1,
+    };
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+  public addTabs() {
+    const workUrls = this.state.workUrls.concat('https://google.com');
+    this.setState({
+      workUrls: workUrls,
+      activeKey: workUrls.length,
+    });
+  }
+  public handleSelect(evt: React.MouseEvent) {
+    this.setState({
+      activeKey: evt
+    })
   }
   public render() {
+    const { workUrls, activeKey } = this.state;
     return (
       <div>
         <Topbar title="Tasks" />
+        <button onClick={() => this.addTabs()}>Add</button>
         <div className="browser-window">
-          <Tabs defaultActiveKey={1} animation={false} id="uncontrolled-tab-example">
-            <Tab eventKey={1} title="Tab 1">
-              <TabContent
-                defaultUrl={'https://www.google.com'}
-                tabId='webview1'
-              />
-            </Tab>
-            <Tab eventKey={2} title="Tab 2">
-              <TabContent
-                defaultUrl={'https://www.facebook.com'}
-                tabId='webview2'
-              />
-            </Tab>
-            <Tab eventKey={3} title="Tab 3">
-              Tab 3 content
-            </Tab>
+          <Tabs activeKey={activeKey} animation={false} onSelect={this.handleSelect} id="controlled-tab">
+            { workUrls.map( (url: string, index: number) =>
+              <Tab eventKey={index + 1} title={`Tab ${index + 1}`}>
+                <TabContent
+                  defaultUrl={url}
+                  tabId={`webview${index + 1}`}
+                />
+              </Tab>
+            )}
           </Tabs>
         </div>
       </div>
