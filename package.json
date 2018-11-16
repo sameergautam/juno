@@ -6,6 +6,7 @@
   "private": true,
   "main": "public/electron.js",
   "dependencies": {
+    "@types/react-bootstrap": "^0.32.14",
     "@types/react-redux": "^6.0.9",
     "@types/react-router-dom": "^4.3.1",
     "autoprefixer": "7.1.6",
@@ -37,6 +38,7 @@
     "promise": "8.0.1",
     "raf": "3.4.0",
     "react": "^16.6.0",
+    "react-bootstrap": "^0.32.4",
     "react-desktop": "^0.3.7",
     "react-dev-utils": "^5.0.2",
     "react-dom": "^16.6.0",
