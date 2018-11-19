@@ -10,7 +10,13 @@ class Tasks extends React.Component<any, any> {
       workUrls: ['https://ibotta.com', 'https://expensify.com', 'https://youtube.com'],
       activeKey: 1,
     };
+    this.handleSelect = this.handleSelect.bind(this);
   }
+
+  public handleSelect(evt: any) {
+    this.setState({ activeKey: evt });
+  }
+
   public addTabs() {
     const workUrls = this.state.workUrls.concat('https://google.com');
     this.setState({
@@ -28,19 +34,20 @@ class Tasks extends React.Component<any, any> {
   }
   public render() {
     const { workUrls, activeKey } = this.state;
+    console.log(workUrls);
     return (
       <div>
         <Topbar title="Tasks" />
         <div className="browser-window">
-          <Tab.Container id="tabs-with-dropdown" activeKey={`TabNav-${activeKey}`}>
+          <Tab.Container id="tabs-with-dropdown" onSelect={this.handleSelect} activeKey={activeKey}>
             <Row className="clearfix">
               <Col sm={12}>
                 <Nav bsStyle="tabs">
                 { workUrls.map( (url: string, index: number) =>
-                  <NavItem eventKey={`TabNav-${index + 1}`}>
-                    {`Tab ${index + 1}`}
-                    <i className="fas fa-times-circle cross-tab" onClick={() => this.removeTab(index)}></i>
-                  </NavItem>
+                    <NavItem eventKey={index + 1}>
+                      {`Tab ${index + 1}`}
+                      <i className="fas fa-times-circle cross-tab" onClick={() => this.removeTab(index)}></i>
+                    </NavItem>
                 )}
                 <button className="add-tab" onClick={() => this.addTabs()}><i className="fas fa-plus"></i></button>
                 </Nav>
@@ -48,7 +55,7 @@ class Tasks extends React.Component<any, any> {
               <Col sm={12}>
                 <Tab.Content animation>
                   { workUrls.map( (url: string, index: number) =>
-                    <Tab.Pane eventKey={`TabNav-${index + 1}`}>
+                    <Tab.Pane eventKey={index + 1}>
                       <TabContent
                         defaultUrl={url}
                         tabId={`webview${index + 1}`}
