@@ -1,7 +1,6 @@
 export const goForward = () => {
   const view = document.getElementById('view');
   view.goForward();
-  return false;
 }
 
 export const goBack = () => {
@@ -22,5 +21,14 @@ export const loadUrl = (value) => {
 export const getWebViewSrc = () => {
   const view = document.getElementById('view');
   return view.src;
+}
 
+export const viewCanGoBack = () => {
+  const view = document.getElementById('view');
+  if (view) { return view.canGoBack(); }
+}
+
+export const viewCanGoForward = () => {
+  const view = document.getElementById('view');
+  if (view) { return view.canGoForward(); }
 }

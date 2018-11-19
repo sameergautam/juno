@@ -2,7 +2,7 @@ import * as React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 // import { withRouter } from 'react-router';
 // import { Home, Profile, Settings } from './screens';
-import { Home, Login, Profile, Settings } from './screens';
+import { Home, Login, Profile, Settings, Tasks } from './screens';
 import './style/index.scss';
 
 class App extends React.Component {
@@ -19,7 +19,8 @@ class App extends React.Component {
           {/* <Route exact={true} path="/" render={this.redirectToLoginPage}  /> */}
           <Route exact={true} path="/" component={Login}  />
           <Route path="/settings" component={Settings} />
-          <Route path="/home" render={() => <Home dataUrl="abc.com" />}/>
+          <Route path="/home" component={Home} />
+          <Route path="/tasks" render={() => <Tasks dataUrl="abc.com" />}/>
           <Route path="/profile" component={Profile} />
         </div>
       </Router>
