@@ -17,9 +17,10 @@ class WebView extends React.Component<any, any> {
       const view = webViewContainer.querySelector('webview');
       if(view) {
         view.addEventListener('did-finish-load', this.props.didFinishLoad);
+        view.addEventListener('did-start-loading', this.props.didStartNavigation);
+        view.addEventListener('did-stop-loading', this.props.didStopLoading);
       };
     }
-    
   }
   
   public render() {

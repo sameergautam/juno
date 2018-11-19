@@ -75,6 +75,26 @@ class TabContent extends React.Component<any, any> {
     });
   }
 
+  public handleDidStartNavigation() {
+    const { tabId } = this.props;
+    this.setState({
+      isBackBtnActive: viewCanGoBack(tabId),
+      isForwardBtnActive: viewCanGoForward(tabId),
+      omniValue: getWebViewSrc(tabId),
+      isPageLoading: true,
+    });
+  }
+
+  public handleDidStopLoading() {
+    const { tabId } = this.props;
+    this.setState({
+      isBackBtnActive: viewCanGoBack(tabId),
+      isForwardBtnActive: viewCanGoForward(tabId),
+      omniValue: getWebViewSrc(tabId),
+      isPageLoading: false,
+    });
+  }
+
   public render() {
     return (
       <div className="browser-window">
@@ -105,6 +125,8 @@ class TabContent extends React.Component<any, any> {
               className="page"
               url={this.props.defaultUrl}
               didFinishLoad={() => this.handleWebViewLoad()}
+              didStartNavigation={() => this.handleDidStartNavigation()}
+              didStopLoading={() => this.handleDidStopLoading()}
             />
           </div>
         </div>
