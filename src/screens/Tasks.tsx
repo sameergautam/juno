@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tab, Tabs } from 'react-bootstrap';
+import { Tab, Row, Col, Nav, NavItem } from 'react-bootstrap';
 import './../style/Tasks.scss';
 import Topbar from './Topbar';
 import TabContent from '../components/TabContent';
@@ -10,7 +10,6 @@ class Tasks extends React.Component<any, any> {
       workUrls: ['https://ibotta.com', 'https://expensify.com', 'https://youtube.com'],
       activeKey: 1,
     };
-    this.handleSelect = this.handleSelect.bind(this);
   }
   public addTabs() {
     const workUrls = this.state.workUrls.concat('https://google.com');
@@ -19,28 +18,47 @@ class Tasks extends React.Component<any, any> {
       activeKey: workUrls.length,
     });
   }
-  public handleSelect(evt: React.MouseEvent) {
+  public removeTab(index: number) {
+    this.state.workUrls.splice(index, 1);
+    const workUrls = this.state.workUrls;
     this.setState({
-      activeKey: evt
-    })
+      workUrls: workUrls,
+      activeKey: workUrls.length,
+    });
   }
   public render() {
     const { workUrls, activeKey } = this.state;
     return (
       <div>
         <Topbar title="Tasks" />
-        <button onClick={() => this.addTabs()}>Add</button>
         <div className="browser-window">
-          <Tabs activeKey={activeKey} animation={false} onSelect={this.handleSelect} id="controlled-tab">
-            { workUrls.map( (url: string, index: number) =>
-              <Tab eventKey={index + 1} title={`Tab ${index + 1}`}>
-                <TabContent
-                  defaultUrl={url}
-                  tabId={`webview${index + 1}`}
-                />
-              </Tab>
-            )}
-          </Tabs>
+          <Tab.Container id="tabs-with-dropdown" activeKey={`TabNav-${activeKey}`}>
+            <Row className="clearfix">
+              <Col sm={12}>
+                <Nav bsStyle="tabs">
+                { workUrls.map( (url: string, index: number) =>
+                  <NavItem eventKey={`TabNav-${index + 1}`}>
+                    {`Tab ${index + 1}`}
+                    <i className="fas fa-times-circle cross-tab" onClick={() => this.removeTab(index)}></i>
+                  </NavItem>
+                )}
+                <button className="add-tab" onClick={() => this.addTabs()}><i className="fas fa-plus"></i></button>
+                </Nav>
+              </Col>
+              <Col sm={12}>
+                <Tab.Content animation>
+                  { workUrls.map( (url: string, index: number) =>
+                    <Tab.Pane eventKey={`TabNav-${index + 1}`}>
+                      <TabContent
+                        defaultUrl={url}
+                        tabId={`webview${index + 1}`}
+                      />
+                    </Tab.Pane>
+                  )}
+                </Tab.Content>
+              </Col>
+            </Row>
+          </Tab.Container>
         </div>
       </div>
     );
