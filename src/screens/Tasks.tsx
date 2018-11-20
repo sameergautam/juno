@@ -11,6 +11,7 @@ class Tasks extends React.Component<any, any> {
       activeTab: 'tab1'
     };
     this.handleSelect = this.handleSelect.bind(this);
+    // this.handleUpdateUrl = this.handleUpdateUrl.bind(this);
   }
 
   public handleSelect(evt: any) {
@@ -18,6 +19,14 @@ class Tasks extends React.Component<any, any> {
       activeTab: evt.currentTarget.id
     })
   }
+
+  // public handleUpdateUrl(url: string, tabId: string) {
+  //   const tabIndex = Number(tabId.slice(-1)) - 1;
+  //   this.state.workUrls.splice(tabIndex, 1, url);
+  //   this.setState({
+  //     workUrls: this.state.workUrls,
+  //   })
+  // }
 
   public addTabs() {
     const workUrls = this.state.workUrls.concat('https://google.com');
@@ -31,15 +40,36 @@ class Tasks extends React.Component<any, any> {
     return workUrls[index].length ? index : this.getActiveIndex(workUrls, index - 1);
   }
 
-  public removeTab(index: number) {
-    this.state.workUrls.splice(index, 1, '');
-    const workUrls = this.state.workUrls;
-    const currentIndex = this.state.activeTab.slice(-1) - 1;
-    const activeIndex = this.getActiveIndex(workUrls, currentIndex);
+  public removeTab(targetIndex: number) {
+    const { workUrls, activeTab } = this.state;
+    const currentIndex = Number(activeTab.slice(-1)) - 1;
+    workUrls.splice(targetIndex, 1, 'targetUrl');
+    const nonEmptyWorkUrls = workUrls.filter((url: string) => url.length > 0);
+    let activeIndex;
+    if (nonEmptyWorkUrls.length === 1) return false;
+
+    if (currentIndex === targetIndex) {
+      if (nonEmptyWorkUrls.indexOf('targetUrl') === 0) {
+        const newActiveUrl = nonEmptyWorkUrls[1];
+        activeIndex = workUrls.indexOf(newActiveUrl);
+      }
+      else if (nonEmptyWorkUrls.indexOf('targetUrl') === nonEmptyWorkUrls.length - 1) {
+        const newActiveUrl = nonEmptyWorkUrls[nonEmptyWorkUrls.length - 2];
+        activeIndex = workUrls.indexOf(newActiveUrl);
+      }
+      else {
+        const newActiveUrl = nonEmptyWorkUrls[nonEmptyWorkUrls.indexOf('targetUrl') + 1];
+        activeIndex = workUrls.indexOf(newActiveUrl);
+      }
+    } else {
+      activeIndex = currentIndex;
+    }
+    workUrls.splice(targetIndex, 1, '');
     this.setState({
       workUrls: workUrls,
       activeTab: `tab${activeIndex + 1}`
     });
+    return true;
   }
 
   public render() {
