@@ -5,7 +5,7 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 import { Home, Login, Profile, Settings, Tasks } from './screens';
 import './style/index.scss';
 
-class App extends React.Component {
+class App extends React.Component<any, any> {
   // public redirectToLoginPage = (): null => {
   //   window.location.href = "https://sputnik.auth.us-east-1.amazoncognito.com/login?client_id=426srpamk96187up4q0kvbieab&redirect_uri=http://localhost:8000/dashboard&response_type=code&scope=openid";
   //   return null;
