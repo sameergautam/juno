@@ -11,13 +11,16 @@ class Topbar extends React.Component<any, any> {
 
   public logout(event: any) {
     event.preventDefault();
+    NProgress.start();
     axios.get('http://localhost:8080/sign_out')
       .then((response) => {
+        NProgress.done();
         localStorage.removeItem('token');
         // this.props.history.push('/');
         window.location.href = "/"
       })
       .catch((error) => {
+        NProgress.done();
         console.log(error.message);
       });
   }

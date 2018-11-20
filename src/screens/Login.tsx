@@ -10,16 +10,19 @@ class Login extends React.Component<any, any> {
 
   public logUser(event: any) {
     event.preventDefault();
+    NProgress.start();
     const data = new FormData(event.target);
     axios.post('http://localhost:8080/sign_in', { 
       email: data.get('username'),
       password: data.get('password')
      })
       .then((response) => {
+        NProgress.done();
         localStorage.setItem('token', response.data.data.idToken.jwtToken);
         this.props.history.push('/home');
       })
       .catch((error) => {
+        NProgress.done();
         console.log(error.message);
       });
   }
