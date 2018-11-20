@@ -266,6 +266,29 @@ webview {
     margin: 8px 0 0 5px;
     color: #aba4a4;
   }
+  .tab-navs {
+    display: flex;
+    padding: 0;
+    .tab-nav-wrapper {
+      cursor: pointer;
+      float: left;
+      list-style: none;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      li {
+        float: left;
+      }
+    }
+    .tab-nav-wrapper .active {
+      color: green;
+    }
+  }
+  .tab-body {
+    >div {
+      display: none;
+    }
+    >div.active {
+      display: block;
+    }
+  }
 }
-
-
