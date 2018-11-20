@@ -257,6 +257,9 @@ webview {
   .cross-tab {
     margin-left: 15px;
     cursor: pointer;
+    position: absolute;
+    top: 14px;
+    right: 10px;
   }
   .add-tab {
     border-radius: 50%;
@@ -267,20 +270,24 @@ webview {
     color: #aba4a4;
   }
   .tab-navs {
+    margin: 0;
     display: flex;
     padding: 0;
     .tab-nav-wrapper {
       cursor: pointer;
       float: left;
       list-style: none;
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
+      position: relative;
       li {
         float: left;
+        width: 100px;
+        padding: 10px;
+        border: 1px solid #ccc;
       }
     }
     .tab-nav-wrapper .active {
       color: green;
+      border-bottom: none;
     }
   }
   .tab-body {
