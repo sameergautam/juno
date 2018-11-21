@@ -11,7 +11,6 @@ class Tasks extends React.Component<any, any> {
       activeTab: 'tab1'
     };
     this.handleSelect = this.handleSelect.bind(this);
-    // this.handleUpdateUrl = this.handleUpdateUrl.bind(this);
   }
 
   public handleSelect(evt: any) {
@@ -19,14 +18,6 @@ class Tasks extends React.Component<any, any> {
       activeTab: evt.currentTarget.id
     })
   }
-
-  // public handleUpdateUrl(url: string, tabId: string) {
-  //   const tabIndex = Number(tabId.slice(-1)) - 1;
-  //   this.state.workUrls.splice(tabIndex, 1, url);
-  //   this.setState({
-  //     workUrls: this.state.workUrls,
-  //   })
-  // }
 
   public addTabs() {
     const workUrls = this.state.workUrls.concat('https://google.com');
@@ -36,30 +27,28 @@ class Tasks extends React.Component<any, any> {
     });
   }
 
-  public getActiveIndex(workUrls: Array<string>, index: number): any {
-    return workUrls[index].length ? index : this.getActiveIndex(workUrls, index - 1);
+  public getActiveIndex(index: number, difference: number ): any {
+    const { workUrls } = this.state;
+    return workUrls[index].length ? index : this.getActiveIndex(index + difference, difference);
   }
 
   public removeTab(targetIndex: number) {
     const { workUrls, activeTab } = this.state;
-    const currentIndex = Number(activeTab.slice(-1)) - 1;
-    workUrls.splice(targetIndex, 1, 'targetUrl');
-    const nonEmptyWorkUrls = workUrls.filter((url: string) => url.length > 0);
+    const currentIndex = Number(/\d+/.exec(activeTab)![0]) - 1;
+    const currentTabs: Array<number> = [];
+    workUrls.map( (url: string, index: number) => {
+      if(url.length > 0) currentTabs.push(index);
+    });
+
     let activeIndex;
-    if (nonEmptyWorkUrls.length === 1) return false;
+    if (currentTabs.length === 1) return false;
 
     if (currentIndex === targetIndex) {
-      if (nonEmptyWorkUrls.indexOf('targetUrl') === 0) {
-        const newActiveUrl = nonEmptyWorkUrls[1];
-        activeIndex = workUrls.indexOf(newActiveUrl);
-      }
-      else if (nonEmptyWorkUrls.indexOf('targetUrl') === nonEmptyWorkUrls.length - 1) {
-        const newActiveUrl = nonEmptyWorkUrls[nonEmptyWorkUrls.length - 2];
-        activeIndex = workUrls.indexOf(newActiveUrl);
+      if(currentTabs.indexOf(targetIndex) === currentTabs.length - 1) {
+        activeIndex = this.getActiveIndex(targetIndex - 1, -1);
       }
       else {
-        const newActiveUrl = nonEmptyWorkUrls[nonEmptyWorkUrls.indexOf('targetUrl') + 1];
-        activeIndex = workUrls.indexOf(newActiveUrl);
+        activeIndex = this.getActiveIndex(targetIndex + 1, 1);
       }
     } else {
       activeIndex = currentIndex;
