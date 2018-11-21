@@ -73,6 +73,7 @@ class TabContent extends React.Component<any, any> {
       omniValue: getWebViewSrc(tabId),
       isPageLoading: false,
     });
+    this.props.onWebViewLoad(tabId);
   }
 
   public handleDidStartNavigation() {

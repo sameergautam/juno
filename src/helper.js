@@ -25,10 +25,15 @@ export const getWebViewSrc = (tabId) => {
 
 export const viewCanGoBack = (tabId) => {
   const view = document.getElementById(tabId);
-  if (view) return view.canGoBack();
+  return view && view.canGoBack();
 }
 
 export const viewCanGoForward = (tabId) => {
   const view = document.getElementById(tabId);
-  if (view) return view.canGoForward();
+  return view && view.canGoForward();
+}
+
+export const getWebViewTitle = (tabId) => {
+  const view = document.getElementById(tabId);
+  return view && view.getTitle();
 }

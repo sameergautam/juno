@@ -1,16 +1,19 @@
 import * as React from 'react';
-// import { Tab, Row, Col, Nav, NavItem } from 'react-bootstrap';
 import './../style/Tasks.scss';
 import Topbar from './Topbar';
 import TabContent from '../components/TabContent';
+import { getWebViewTitle } from '../helper';
+
 class Tasks extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
       workUrls: ['https://ibotta.com', 'https://expensify.com', 'https://youtube.com'],
-      activeTab: 'tab1'
+      activeTab: 'tab1',
+      titles:['Ibotta', 'Expensify', 'Youtube']
     };
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleWebViewLoad = this.handleWebViewLoad.bind(this);
   }
 
   public handleSelect(evt: any) {
@@ -61,9 +64,22 @@ class Tasks extends React.Component<any, any> {
     return true;
   }
 
+  public handleWebViewLoad(webviewId: string) {
+    const tabIndex = Number(/\d+/.exec(webviewId)![0]);
+    const { titles } = this.state;
+    const tabTitle = getWebViewTitle(webviewId);
+    console.log(tabTitle);
+    const updatedTitles = titles.slice();
+    updatedTitles[tabIndex - 1] = tabTitle;
+    console.log(updatedTitles);
+    this.setState({
+      titles: updatedTitles
+    })
+  }
+
   public render() {
-    const { workUrls } = this.state;
-    console.log(workUrls);
+    const { workUrls, titles} = this.state;
+    const nonEmptyUrls = workUrls.filter((url:string) =>  url.length > 0);
     return (
       <div>
         <Topbar title="Tasks" />
@@ -72,9 +88,9 @@ class Tasks extends React.Component<any, any> {
             {
               workUrls.map( (url: string, index: number) => {
                 return url.length ? (
-                <div className="tab-nav-wrapper">
-                <li className={this.state.activeTab === `tab${index + 1}` ? 'active' : ''} id={`tab${index + 1}`} onClick={this.handleSelect}>{`Tab ${index + 1}`}</li>
-                <i className="fas fa-times-circle cross-tab" onClick={() => this.removeTab(index)}></i>
+                <div className="tab-nav-wrapper" style={{width: `${100 / nonEmptyUrls.length}%`}}>
+                  <li className={this.state.activeTab === `tab${index + 1}` ? 'active' : ''} id={`tab${index + 1}`} onClick={this.handleSelect}>{titles[index]}</li>
+                  <i className="fas fa-times-circle cross-tab" onClick={() => this.removeTab(index)}></i>
                 </div> ) : null
               })
             }
@@ -87,6 +103,7 @@ class Tasks extends React.Component<any, any> {
                 <TabContent
                   defaultUrl={url}
                   tabId={`webview${index + 1}`}
+                  onWebViewLoad={this.handleWebViewLoad}
                 />
               </div>) : null
             })
