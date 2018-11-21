@@ -15,7 +15,9 @@ class Topbar extends React.Component<any, any> {
     axios.get('http://localhost:8080/sign_out')
       .then((response) => {
         NProgress.done();
-        localStorage.removeItem('token');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('idToken');
+        localStorage.removeItem('user_id');
         // this.props.history.push('/');
         window.location.href = "/"
       })

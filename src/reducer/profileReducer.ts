@@ -1,5 +1,5 @@
 const profile = {
-  profile: { FirstName: "", LastName: "", Email: "", Address: "" }
+  profile: { FirstName: "", LastName: "", email: "", Address: "" }
 };
 
 const profileState = (state = profile, action: any) => {

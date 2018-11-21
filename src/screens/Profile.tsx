@@ -24,8 +24,8 @@ export class Profile extends React.Component<any, any> {
         <div className="profile-widget">
           <div className="profile-details">
             <span><img src="avatar.png" alt="Avatar" width="200" /></span>
-            <span className="name">{profile.FirstName} {profile.LastName}</span>
-            <span>{profile.Email}</span>
+            <span className="name">{profile.email} {profile.LastName}</span>
+            <span>{profile.email}</span>
             <span>{profile.Address}</span>
           </div>
         </div>

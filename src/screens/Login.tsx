@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './../style/App.scss';
 import axios from 'axios';
-import * as toastr from "toastr";
+// import * as toastr from "toastr";
 import './../../node_modules/toastr/toastr.scss'
 
 class Login extends React.Component<any, any> {
@@ -14,18 +14,23 @@ class Login extends React.Component<any, any> {
     event.preventDefault();
     NProgress.start();
     const data = new FormData(event.target);
-    axios.post('http://localhost:8080/sign_in', { 
+    axios.post('http://localhost:8081/users/login', { 
       email: data.get('username'),
       password: data.get('password')
      })
       .then((response) => {
         NProgress.done();
-        localStorage.setItem('token', response.data.data.idToken.jwtToken);
+        // console.log(response.data.data.accessToken.jwtToken);
+        // console.log(response.data.data.idToken.jwtToken);
+        localStorage.setItem('idToken', response.data.data.idToken.jwtToken);
+        localStorage.setItem('accessToken', response.data.data.accessToken.jwtToken);
+        localStorage.setItem('user_id', response.data.user_id);
         this.props.history.push('/home');
       })
       .catch((error) => {
         NProgress.done();
-        toastr.error(error.response.data);
+        console.log(error.response)
+        // toastr.error(error.response.data);
       });
   }
 
