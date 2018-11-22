@@ -1,16 +1,24 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import './../style/Tasks.scss';
 import Topbar from './Topbar';
 import TabContent from '../components/TabContent';
 import { getWebViewTitle } from '../helper';
 
 class Tasks extends React.Component<any, any> {
+  static getDerivedStateFromProps(nextProps: any, prevState: any) {
+    if(nextProps.tasks.length > prevState.workUrls.length) {
+      return ({ workUrls: nextProps.tasks});
+    }
+    return null;
+  }
+
   constructor(props: any) {
     super(props);
     this.state = {
-      workUrls: ['https://ibotta.com', 'https://expensify.com', 'https://youtube.com'],
+      workUrls: this.props.tasks,
       activeTab: 'tab1',
-      titles:['Ibotta', 'Expensify', 'Youtube']
+      titles:['New tab', 'New tab', 'New tab']
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleWebViewLoad = this.handleWebViewLoad.bind(this);
@@ -68,10 +76,8 @@ class Tasks extends React.Component<any, any> {
     const tabIndex = Number(/\d+/.exec(webviewId)![0]);
     const { titles } = this.state;
     const tabTitle = getWebViewTitle(webviewId);
-    console.log(tabTitle);
     const updatedTitles = titles.slice();
     updatedTitles[tabIndex - 1] = tabTitle;
-    console.log(updatedTitles);
     this.setState({
       titles: updatedTitles
     })
@@ -115,4 +121,9 @@ class Tasks extends React.Component<any, any> {
   }
 }
 
-export default Tasks;
+const mapStateToProps = (store: any) => {
+  return ({
+    tasks: store.profileState.tasks
+  });
+}
+export default connect(mapStateToProps)(Tasks);

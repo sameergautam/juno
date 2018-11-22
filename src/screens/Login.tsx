@@ -14,17 +14,18 @@ class Login extends React.Component<any, any> {
     event.preventDefault();
     NProgress.start();
     const data = new FormData(event.target);
-    axios.post('http://localhost:8081/users/login', { 
+    axios.post('http://localhost:8081/users/login', {
       email: data.get('username'),
       password: data.get('password')
      })
       .then((response) => {
+        console.log(response);
         NProgress.done();
         // console.log(response.data.data.accessToken.jwtToken);
         // console.log(response.data.data.idToken.jwtToken);
         localStorage.setItem('idToken', response.data.data.idToken.jwtToken);
         localStorage.setItem('accessToken', response.data.data.accessToken.jwtToken);
-        localStorage.setItem('user_id', response.data.user_id);
+        localStorage.setItem('userId', response.data.user_id);
         this.props.history.push('/home');
       })
       .catch((error) => {

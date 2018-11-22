@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
-// import { withRouter } from 'react-router';
-// import { Home, Profile, Settings } from './screens';
+import { connect } from 'react-redux';
 import { Home, Login, Profile, Settings, Tasks } from './screens';
 import './style/index.scss';
+import { fetchProfile, fetchTasks } from './action/userSession';
 
 class App extends React.Component<any, any> {
-  // public redirectToLoginPage = (): null => {
-  //   window.location.href = "https://sputnik.auth.us-east-1.amazoncognito.com/login?client_id=426srpamk96187up4q0kvbieab&redirect_uri=http://localhost:8000/dashboard&response_type=code&scope=openid";
-  //   return null;
-  // };
+  public componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchProfile());
+    dispatch(fetchTasks());
+  }
   
   public render() {
     return (
@@ -19,7 +20,7 @@ class App extends React.Component<any, any> {
           <Route exact={true} path="/" component={Login}  />
           <Route path="/settings" component={Settings} />
           <Route path="/home" component={Home} />
-          <Route path="/tasks" render={() => <Tasks dataUrl="abc.com" />}/>
+          <Route path="/tasks" component={Tasks}/>
           <Route path="/profile" component={Profile} />
         </div>
       </Router>
@@ -27,4 +28,4 @@ class App extends React.Component<any, any> {
   }
 }
 
-export default (App);
+export default connect()(App);
