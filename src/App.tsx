@@ -11,7 +11,7 @@ class App extends React.Component<any, any> {
     dispatch(fetchProfile());
     dispatch(fetchTasks());
   }
-  
+
   public render() {
     return (
       <Router>

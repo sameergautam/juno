@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export const fetchProfile = () => 
+export const fetchProfile = () =>
   (dispatch: any) =>
     axios.get('http://wis-ecs-services-425328152.us-east-1.elb.amazonaws.com/worker/' + localStorage.getItem('userId'), {
       headers: {
-        'Authorization': 'Bearer ' +  localStorage.getItem('accessToken')  + " : " +  localStorage.getItem('idToken') 
+        'Authorization': localStorage.getItem('auth'),
       }
     })
     .then((response) => {

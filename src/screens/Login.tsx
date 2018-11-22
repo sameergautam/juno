@@ -3,6 +3,7 @@ import './../style/App.scss';
 import axios from 'axios';
 // import * as toastr from "toastr";
 import './../../node_modules/toastr/toastr.scss'
+import * as utils from "../utils";
 
 class Login extends React.Component<any, any> {
   constructor(props: any) {
@@ -14,18 +15,16 @@ class Login extends React.Component<any, any> {
     event.preventDefault();
     NProgress.start();
     const data = new FormData(event.target);
-    axios.post('http://localhost:8081/users/login', {
-      email: data.get('username'),
+    axios.post('http://hs-ecs-services-1167733196.us-east-1.elb.amazonaws.com/auth', {
+      username: data.get('username'),
       password: data.get('password')
      })
       .then((response) => {
-        console.log(response);
+        const idToken = response.headers.authorization.split(':')[1].trim();
+        const tokens = utils.decodeToken(idToken);
         NProgress.done();
-        // console.log(response.data.data.accessToken.jwtToken);
-        // console.log(response.data.data.idToken.jwtToken);
-        localStorage.setItem('idToken', response.data.data.idToken.jwtToken);
-        localStorage.setItem('accessToken', response.data.data.accessToken.jwtToken);
-        localStorage.setItem('userId', response.data.user_id);
+        localStorage.setItem('auth', response.headers.authorization);
+        localStorage.setItem('userId', tokens['custom:id']);
         this.props.history.push('/home');
       })
       .catch((error) => {
