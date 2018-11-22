@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
-import profileState from './profileReducer';
-import loginState from './loginReducer';
+import profileState from './userSession';
 
 export default combineReducers({
-  profileState,
-  loginState
+  profileState
 });
