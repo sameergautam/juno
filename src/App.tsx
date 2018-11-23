@@ -8,15 +8,16 @@ import { fetchTasks, fetchProfile } from './action/userSession';
 class App extends React.Component<any, any> {
   public componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchTasks());
-    dispatch(fetchProfile());
+    if(localStorage.getItem('auth')){
+      dispatch(fetchTasks());
+      dispatch(fetchProfile());
+    }
   }
 
   public render() {
     return (
       <Router>
         <div>
-          {/* <Route exact={true} path="/" render={this.redirectToLoginPage}  /> */}
           <Route exact={true} path="/" component={Login}  />
           <Route path="/settings" component={Settings} />
           <Route path="/home" component={Home} />

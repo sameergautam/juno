@@ -40,7 +40,7 @@ export const getWebViewTitle = (tabId) => {
 
 export const autoLogin = (tabId) => {
   const view = document.getElementById(tabId);
-  const code = `document.getElementById('user_email').value = 'raman.amatya@cloudfactory.com'; document.getElementById('user_password').value = 'Kathmandu09@'; document.getElementById('user_submit').click();`
+  const code = `document.getElementById('user_email').value = 'mamata+50@cloudfactory.com'; document.getElementById('user_password').value = 'K@thmandu09'; document.getElementById('user_submit').click();`
   view.executeJavaScript(code);
   return;
 }

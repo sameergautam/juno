@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './../style/App.scss';
 import axios from 'axios';
-// import * as toastr from "toastr";
+import * as toastr from "toastr";
 import './../../node_modules/toastr/toastr.scss'
 import * as utils from "../utils";
 const config = require('./../config');
@@ -30,8 +30,7 @@ class Login extends React.Component<any, any> {
       })
       .catch((error) => {
         NProgress.done();
-        console.log(error.response)
-        // toastr.error(error.response.data);
+        toastr.error('Email or Password invalid');
       });
   }
 
