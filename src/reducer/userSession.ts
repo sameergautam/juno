@@ -1,5 +1,5 @@
 const user = {
-  profile: { email: ''},
+  profile: { email: '', fullname: ''},
   tasks: [],
   loginOptions: [],
   taskTitles: [],
@@ -10,9 +10,9 @@ const profileState = (state = user, action: any) => {
   switch (action.type) {
     case 'FETCH_PROFILE':
       newState.profile.email = action.payload.email;
+      newState.profile.fullname = action.payload.fullname;
       return newState;
     case 'FETCH_TASKS':
-      console.log(action);
       newState.tasks = action.payload.task_urls;
       newState.loginOptions = action.payload.login_options;
       newState.taskTitles = action.payload.task_urls.map(() => 'New Tab');

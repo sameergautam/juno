@@ -27,7 +27,6 @@ export const fetchTasks = () =>
       }
     })
     .then((response) => {
-      console.log(response);
       dispatch({
         type: 'FETCH_TASKS',
         payload: response.data
