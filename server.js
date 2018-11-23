@@ -1,5 +1,6 @@
 const Hapi = require('hapi');
 const rp = require('request-promise');
+const config = require('src/config')
 
 // Create a server with a host and port
 const server = Hapi.server({
@@ -16,7 +17,7 @@ server.route({
   },
   config: {
     cors: {
-      origin: ['http://localhost:3000'],
+      origin: [config.HOST_URL],
       additionalHeaders: ['cache-control', 'x-requested-with']
     }
   },

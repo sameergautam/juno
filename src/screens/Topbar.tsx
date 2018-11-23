@@ -2,16 +2,11 @@ import * as React from 'react';
 import './../style/App.scss';
 import { Link } from 'react-router-dom';
 import history from './../history';
+const config = require('./../config');
 
 class Topbar extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
-    const workMode = (window.location.href === "http://localhost:3000/tasks#/") ? true : false;
-    console.log(window.location.href);
-    console.log(workMode);
-    this.state = {
-      workMode: workMode
-    }
     this.logout = this.logout.bind(this);
     this.changeWorkMode = this.changeWorkMode.bind(this);
   }
@@ -25,7 +20,6 @@ class Topbar extends React.Component<any, any> {
 
   public changeWorkMode(event: any) {
     const work_mode = event.target.checked;
-    this.setState({ workMode: work_mode });
     setTimeout(function() {
       if (work_mode) {
         history.push('/tasks#/');
@@ -36,7 +30,7 @@ class Topbar extends React.Component<any, any> {
   }
 
   public render() {
-    const checked = (window.location.href === "http://localhost:3000/tasks#/") ? true : false;
+    const checked = (window.location.href === config.HOST_URL + "tasks#/") ? true : false;
 
     return (
       <div className="topbar">
