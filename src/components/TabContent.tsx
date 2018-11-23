@@ -81,7 +81,6 @@ class TabContent extends React.Component<any, any> {
     this.setState({
       isBackBtnActive: viewCanGoBack(tabId),
       isForwardBtnActive: viewCanGoForward(tabId),
-      omniValue: getWebViewSrc(tabId),
       isPageLoading: true,
     });
   }
