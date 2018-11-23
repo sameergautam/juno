@@ -4,6 +4,7 @@ import axios from 'axios';
 // import * as toastr from "toastr";
 import './../../node_modules/toastr/toastr.scss'
 import * as utils from "../utils";
+const config = require('./../config');
 
 class Login extends React.Component<any, any> {
   constructor(props: any) {
@@ -15,7 +16,7 @@ class Login extends React.Component<any, any> {
     event.preventDefault();
     NProgress.start();
     const data = new FormData(event.target);
-    axios.post('http://hs-ecs-services-1167733196.us-east-1.elb.amazonaws.com/auth', {
+    axios.post(config.HUB_SERVICE_URL + 'auth', {
       username: data.get('username'),
       password: data.get('password')
      })

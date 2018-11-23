@@ -1,8 +1,9 @@
 import axios from 'axios';
+const config = require('./../config');
 
 export const fetchProfile = () =>
   (dispatch: any) =>
-    axios.get('http://wis-ecs-services-425328152.us-east-1.elb.amazonaws.com/worker/' + localStorage.getItem('userId'), {
+    axios.get(config.HUB_SERVICE_URL + 'worker/' + localStorage.getItem('userId'), {
       headers: {
         'Authorization': localStorage.getItem('auth'),
       }
