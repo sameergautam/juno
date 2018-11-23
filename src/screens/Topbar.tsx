@@ -2,7 +2,7 @@ import * as React from 'react';
 import './../style/App.scss';
 import { Link } from 'react-router-dom';
 import history from './../history';
-const config = require('./../config');
+import * as configs from './../config'
 
 class Topbar extends React.Component<any, any> {
   constructor(props: any) {
@@ -19,9 +19,9 @@ class Topbar extends React.Component<any, any> {
   }
 
   public changeWorkMode(event: any) {
-    const work_mode = event.target.checked;
-    setTimeout(function() {
-      if (work_mode) {
+    const workMode = event.target.checked;
+    setTimeout(() => {
+      if (workMode) {
         history.push('/tasks#/');
       } else {
         history.push('/profile');
@@ -30,7 +30,7 @@ class Topbar extends React.Component<any, any> {
   }
 
   public render() {
-    const checked = (window.location.href === config.HOST_URL + "tasks#/") ? true : false;
+    const checked = (window.location.href === configs.HOST_URL + "tasks#/") ? true : false;
 
     return (
       <div className="topbar">
@@ -40,7 +40,7 @@ class Topbar extends React.Component<any, any> {
           <div>
             <span className="switch_mode">{checked ? 'Working' : 'Not Working'}</span>
             <label className="switch">
-              <input type="checkbox" checked={checked} onClick={this.changeWorkMode} />
+              <input type="checkbox" checked={checked} onChange={this.changeWorkMode} />
               <span className="slider round" />
             </label>
           </div>

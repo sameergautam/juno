@@ -1,15 +1,15 @@
 import axios from 'axios';
-const config = require('./../config');
+import * as configs from './../config'
 
 export const fetchProfile = () =>
   (dispatch: any) =>
-    axios.get(config.HUB_SERVICE_URL + 'worker/' + localStorage.getItem('userId'), {
+    axios.get(configs.HUB_SERVICE_URL + 'worker/' + localStorage.getItem('userId'), {
       headers: {
         'Authorization': localStorage.getItem('auth'),
       }
     })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       dispatch({
         type: 'FETCH_PROFILE',
         payload: response.data

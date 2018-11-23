@@ -113,13 +113,13 @@ class TabContent extends React.Component<any, any> {
         <div className="tab-content">
           <nav id="navigation">
             <div id="back">
-              <i className={`fas fa-arrow-left ${this.state.isBackBtnActive ? 'active' : ''}`} aria-hidden="true" onClick={() => this.handleGoBack()}></i>
+              <i className={`fas fa-arrow-left ${this.state.isBackBtnActive ? 'active' : ''}`} aria-hidden="true" onClick={() => this.handleGoBack()} />
             </div>
             <div id="forward">
-              <i className={`fas fa-arrow-right ${this.state.isForwardBtnActive ? 'active' : ''}`} aria-hidden="true" onClick={() => this.handleGoForward()}></i>
+              <i className={`fas fa-arrow-right ${this.state.isForwardBtnActive ? 'active' : ''}`} aria-hidden="true" onClick={() => this.handleGoForward()} />
             </div>
             <div id="refresh">
-              <i className={`fas fa-redo active ${this.state.isPageLoading ? 'load' : ''}`} aria-hidden="true" onClick={() => this.handleReload()}></i>
+              <i className={`fas fa-redo active ${this.state.isPageLoading ? 'load' : ''}`} aria-hidden="true" onClick={() => this.handleReload()} />
             </div>
             <div id="omnibox">
               <input
