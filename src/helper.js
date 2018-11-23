@@ -37,3 +37,10 @@ export const getWebViewTitle = (tabId) => {
   const view = document.getElementById(tabId);
   return view && view.getTitle();
 }
+
+export const autoLogin = (tabId) => {
+  const view = document.getElementById(tabId);
+  const code = `document.getElementById('user_email').value = 'raman.amatya@cloudfactory.com'; document.getElementById('user_password').value = 'Kathmandu09@'; document.getElementById('user_submit').click();`
+  view.executeJavaScript(code);
+  return;
+}
