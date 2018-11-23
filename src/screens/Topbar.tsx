@@ -24,7 +24,7 @@ class Topbar extends React.Component<any, any> {
       if (workMode) {
         history.push('/tasks#/');
       } else {
-        history.push('/profile');
+        history.push('/home');
       }
     }, 300);
   }
