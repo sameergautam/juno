@@ -143,11 +143,11 @@ webview {
   .switch {
     position: relative;
     display: inline-block;
-    visibility: hidden;
     width: 35px;
     height: 16px;
-    top: 1px;
-    margin-right: 5px;
+    top: 3px;
+    margin-left: 10px;
+    margin-bottom: 0;
 
     input {
       opacity: 0;

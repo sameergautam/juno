@@ -21,7 +21,7 @@ class Home extends React.Component<any, any> {
           <div className="profile-details">
             <span><img src="start-work.png" alt="Start Work" width="230" /></span><br />
             <ul className="nav">
-              <Link to="/tasks" title="Tasks">Start Working</Link>
+              <Link to="/tasks#/" title="Tasks">Start Working</Link>
             </ul>
           </div>
         </div>
