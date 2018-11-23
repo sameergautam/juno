@@ -1,9 +1,16 @@
 import * as React from 'react';
 import './../style/App.scss';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchProfile } from '../action/userSession';
 import Topbar from './Topbar';
 
 class Home extends React.Component<any, any> {
+  public componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchProfile());
+  }
+
   public render() {
     return (
       <div>
@@ -21,4 +28,4 @@ class Home extends React.Component<any, any> {
   }
 }
 
-export default Home;
+export default connect()(Home);

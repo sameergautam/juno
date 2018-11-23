@@ -3,12 +3,11 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Home, Login, Profile, Settings, Tasks } from './screens';
 import './style/index.scss';
-import { fetchProfile, fetchTasks } from './action/userSession';
+import { fetchTasks } from './action/userSession';
 
 class App extends React.Component<any, any> {
   public componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchProfile());
     dispatch(fetchTasks());
   }
 
