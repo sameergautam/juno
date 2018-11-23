@@ -1,6 +1,8 @@
 const user = {
   profile: { email: ''},
-  tasks: []
+  tasks: [],
+  loginOptions: [],
+  taskTitles: [],
 };
 
 const profileState = (state = user, action: any) => {
@@ -11,7 +13,9 @@ const profileState = (state = user, action: any) => {
       return newState;
     case 'FETCH_TASKS':
       console.log(action);
-      newState.tasks = action.payload.tasks;
+      newState.tasks = action.payload.task_urls;
+      newState.loginOptions = action.payload.login_options;
+      newState.taskTitles = action.payload.task_urls.map(() => 'New Tab');
       return newState;
     default: {
       return newState;

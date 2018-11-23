@@ -8,7 +8,7 @@ import { getWebViewTitle } from '../helper';
 class Tasks extends React.Component<any, any> {
   static getDerivedStateFromProps(nextProps: any, prevState: any) {
     if(nextProps.tasks.length > prevState.workUrls.length) {
-      return ({ workUrls: nextProps.tasks});
+      return ({ workUrls: nextProps.tasks, titles: nextProps.taskTitles });
     }
     return null;
   }
@@ -18,7 +18,7 @@ class Tasks extends React.Component<any, any> {
     this.state = {
       workUrls: this.props.tasks,
       activeTab: 'tab1',
-      titles:['New tab', 'New tab', 'New tab']
+      titles: this.props.taskTitles,
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleWebViewLoad = this.handleWebViewLoad.bind(this);
@@ -123,7 +123,8 @@ class Tasks extends React.Component<any, any> {
 
 const mapStateToProps = (store: any) => {
   return ({
-    tasks: store.profileState.tasks
+    tasks: store.profileState.tasks,
+    taskTitles: store.profileState.taskTitles
   });
 }
 export default connect(mapStateToProps)(Tasks);

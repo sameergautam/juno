@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchProfile } from '../action/userSession';
 import Topbar from './Topbar';
+import { fetchTasks } from '../action/userSession';
 
 class Home extends React.Component<any, any> {
   public componentDidMount() {
     const { dispatch } = this.props;
+    dispatch(fetchTasks());
     dispatch(fetchProfile());
   }
 
