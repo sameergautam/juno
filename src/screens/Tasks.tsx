@@ -85,6 +85,7 @@ class Tasks extends React.Component<any, any> {
 
   public render() {
     const { workUrls, titles} = this.state;
+    const { loginOptions } = this.props;
     const nonEmptyUrls = workUrls.filter((url:string) =>  url.length > 0);
     return (
       <div>
@@ -109,6 +110,7 @@ class Tasks extends React.Component<any, any> {
                 <TabContent
                   defaultUrl={url}
                   tabId={`webview${index + 1}`}
+                  loginOptions={loginOptions}
                   onWebViewLoad={this.handleWebViewLoad}
                 />
               </div>) : null
@@ -124,7 +126,8 @@ class Tasks extends React.Component<any, any> {
 const mapStateToProps = (store: any) => {
   return ({
     tasks: store.profileState.tasks,
-    taskTitles: store.profileState.taskTitles
+    taskTitles: store.profileState.taskTitles,
+    loginOptions: store.profileState.loginOptions,
   });
 }
 export default connect(mapStateToProps)(Tasks);
