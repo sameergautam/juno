@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './../style/App.scss';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 
 class Topbar extends React.Component<any, any> {
   constructor(props: any) {
@@ -11,18 +11,9 @@ class Topbar extends React.Component<any, any> {
 
   public logout(event: any) {
     event.preventDefault();
-    NProgress.start();
-    axios.get('http://localhost:8081/users/sign_out')
-      .then((response) => {
-        NProgress.done();
-        localStorage.removeItem('auth');
-        localStorage.removeItem('user_id');
-        window.location.href = "/"
-      })
-      .catch((error) => {
-        NProgress.done();
-        console.log(error.message);
-      });
+    localStorage.removeItem('auth');
+    localStorage.removeItem('userId');
+    window.location.href = "/"
   }
 
   public render() {
