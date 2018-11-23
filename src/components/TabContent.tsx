@@ -1,7 +1,15 @@
 import * as React from 'react';
 import './../style/Tasks.scss';
 import WebView from './WebView';
-import { goForward, goBack, reloadUrl, loadUrl, getWebViewSrc, viewCanGoBack, viewCanGoForward } from '../helper';
+import { goForward,
+  goBack,
+  reloadUrl,
+  loadUrl,
+  getWebViewSrc,
+  viewCanGoBack,
+  viewCanGoForward,
+  autoLogin,
+} from '../helper';
 
 class TabContent extends React.Component<any, any> {
   constructor(props: any) {
@@ -66,7 +74,7 @@ class TabContent extends React.Component<any, any> {
   }
 
   public handleWebViewLoad() {
-    const { tabId } = this.props;
+    const { tabId, loginOptions, defaultUrl } = this.props;
     this.setState({
       isBackBtnActive: viewCanGoBack(tabId),
       isForwardBtnActive: viewCanGoForward(tabId),
@@ -74,6 +82,10 @@ class TabContent extends React.Component<any, any> {
       isPageLoading: false,
     });
     this.props.onWebViewLoad(tabId);
+    const loginUrl = loginOptions.map((ele: any) => ele.url);
+    if (loginUrl.indexOf(defaultUrl) >= 0) {
+      autoLogin(tabId);
+    }
   }
 
   public handleDidStartNavigation() {
