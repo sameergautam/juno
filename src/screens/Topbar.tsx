@@ -1,8 +1,7 @@
 import * as React from 'react';
 import './../style/App.scss';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import history from './../history';
-import * as configs from './../config'
 
 class Topbar extends React.Component<any, any> {
   constructor(props: any) {
@@ -20,27 +19,24 @@ class Topbar extends React.Component<any, any> {
 
   public changeWorkMode(event: any) {
     const workMode = event.target.checked;
-    setTimeout(() => {
-      if (workMode) {
-        history.push('/tasks#/');
-      } else {
-        history.push('/home');
-      }
-    }, 300);
+    if (workMode) {
+      this.props.history.push('/tasks');
+    } else {
+      this.props.history.push('/home');
+    }
   }
 
   public render() {
-    const checked = (window.location.href === configs.HOST_URL + "tasks#/") ? true : false;
-
+    const { workingMode } = this.props;
     return (
       <div className="topbar">
         <div className="logo"><Link to="/home" title="Home"><img src="cf-logo-header.png" alt="CloudFactory" /></Link></div>
         <div className="title">{this.props.title}</div>
         <div className="rightNav">
           <div>
-            <span className="switch_mode">{checked ? 'Working' : 'Not Working'}</span>
+            <span className="switch_mode">{workingMode ? 'Working' : 'Not Working'}</span>
             <label className="switch">
-              <input type="checkbox" checked={checked} onChange={this.changeWorkMode} />
+              <input type="checkbox" checked={workingMode} onChange={this.changeWorkMode} />
               <span className="slider round" />
             </label>
           </div>
@@ -53,4 +49,9 @@ class Topbar extends React.Component<any, any> {
   }
 }
 
-export default Topbar;
+const mapStateToProps = (store: any) => {
+  return ({
+    workingMode: store.profileState.workingMode,
+  });
+}
+export default connect(mapStateToProps)(Topbar);

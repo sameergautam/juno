@@ -112,9 +112,9 @@ webview {
 
   .title {
     vertical-align: top;
-    margin: 20px 0 0 10px;
+    margin: 10px 0 0 -5px;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .rightNav {
@@ -122,7 +122,7 @@ webview {
 
     > div {
       display: inline-block;
-      padding: 20px;
+      padding: 10px;
       cursor: pointer;
     }
 
@@ -138,6 +138,9 @@ webview {
         background: #5199e4;
       }
     }
+  }
+  .logo img {
+    width: 70%;
   }
 
   .switch {
@@ -258,15 +261,16 @@ webview {
     margin-left: 15px;
     cursor: pointer;
     position: absolute;
-    top: 14px;
+    top: 9px;
     right: 10px;
+    font-size: 13px;
   }
   .add-tab {
     border-radius: 50%;
-    padding: 1px 8px;
+    padding: 1px 6px;
     background: #eee;
     border: 1px solid #ddd;
-    margin: 6px;
+    margin: 2px 2px 1px 10px;
     color: #aba4a4;
   }
   .tab-navs {
@@ -282,16 +286,19 @@ webview {
       li {
         float: left;
         width: 100%;
-        padding: 10px 40px 10px 10px;
-        border: 1px solid #ccc;
+        padding: 5px 40px 5px 10px;
+        border-right: 1px solid #dddddd;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+        font-size: 12px;
       }
     }
     .tab-nav-wrapper .active {
-      color: green;
+      color: #08b;
       border-bottom: none;
+      background: #e8e8e8;
+      font-weight: bold;
     }
   }
   .tab-body {
