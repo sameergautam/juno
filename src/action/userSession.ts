@@ -9,7 +9,6 @@ export const fetchProfile = () =>
       }
     })
     .then((response) => {
-      // console.log(response);
       dispatch({
         type: 'FETCH_PROFILE',
         payload: response.data
@@ -35,3 +34,9 @@ export const fetchTasks = () =>
     .catch((error) => {
       console.log(error);
     });
+
+export const switchWorkMode = (val: boolean) =>
+  ({
+    type: 'SWITCH_WORK_MODE',
+    payload: val,
+  });
