@@ -8,8 +8,8 @@ import { switchWorkMode } from '../action/userSession';
 
 class Tasks extends React.Component<any, any> {
   public static getDerivedStateFromProps(nextProps: any, prevState: any) {
-    if(nextProps.tasks.length > prevState.workUrls.length) {
-      return ({ workUrls: nextProps.tasks, titles: nextProps.taskTitles });
+    if(nextProps.taskUrls.length > prevState.workUrls.length) {
+      return ({ workUrls: nextProps.taskUrls, titles: nextProps.taskTitles });
     }
     return null;
   }
@@ -17,7 +17,7 @@ class Tasks extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      workUrls: this.props.tasks,
+      workUrls: this.props.taskUrls,
       activeTab: 'tab1',
       titles: this.props.taskTitles,
     };
@@ -90,7 +90,7 @@ class Tasks extends React.Component<any, any> {
 
   public render() {
     const { workUrls, titles} = this.state;
-    const { loginOptions, history } = this.props;
+    const { history, credentials } = this.props;
     const nonEmptyUrls = workUrls.filter((url:string) =>  url.length > 0);
     return (
       <div>
@@ -115,7 +115,7 @@ class Tasks extends React.Component<any, any> {
                   <TabContent
                     defaultUrl={url}
                     tabId={`webview${index + 1}`}
-                    loginOptions={loginOptions}
+                    credentials={credentials[index]}
                     onWebViewLoad={this.handleWebViewLoad}
                   />
                 </div>) : null
@@ -130,9 +130,9 @@ class Tasks extends React.Component<any, any> {
 
 const mapStateToProps = (store: any) => {
   return ({
-    tasks: store.profileState.tasks,
+    taskUrls: store.profileState.taskUrls,
     taskTitles: store.profileState.taskTitles,
-    loginOptions: store.profileState.loginOptions,
+    credentials: store.profileState.credentials,
   });
 }
 export default connect(mapStateToProps)(Tasks);

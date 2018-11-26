@@ -77,7 +77,7 @@ class TabContent extends React.Component<any, any> {
   }
 
   public handleWebViewLoad() {
-    const { tabId, loginOptions, defaultUrl } = this.props;
+    const { tabId, credentials } = this.props;
     this.setState({
       isBackBtnActive: viewCanGoBack(tabId),
       isForwardBtnActive: viewCanGoForward(tabId),
@@ -85,8 +85,7 @@ class TabContent extends React.Component<any, any> {
       isPageLoading: false,
     });
     this.props.onWebViewLoad(tabId);
-    const loginUrl = loginOptions.map((ele: any) => ele.url);
-    if (loginUrl.indexOf(defaultUrl) >= 0) {
+    if (credentials) {
       autoLogin(tabId);
     }
   }
