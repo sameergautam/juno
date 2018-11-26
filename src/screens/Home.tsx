@@ -1,33 +1,18 @@
 import * as React from 'react';
 import './../style/App.scss';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { fetchProfile, switchWorkMode, fetchTasks } from '../action/userSession';
-import Topbar from './Topbar';
+import Login from './Login';
+import Dashboard from './Dashboard';
 
 class Home extends React.Component<any, any> {
-  public componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchTasks());
-    dispatch(fetchProfile());
-    dispatch(switchWorkMode(false));
-  }
-
   public render() {
+    const userId = localStorage.getItem('userId');
+    const { history } = this.props;
     return (
       <div>
-        <Topbar history={this.props.history} title="Home" />
-        <div className="wrapper profile-widget">
-          <div className="profile-details">
-            <span><img src="start-work.png" alt="Start Work" width="230" /></span><br />
-            <ul className="nav">
-              <Link to="/tasks" title="Tasks">Start Working</Link>
-            </ul>
-          </div>
-        </div>
+        { userId ? <Dashboard history={history} /> : <Login history={history} /> }
       </div>
     );
   }
 }
 
-export default connect()(Home);
+export default Home;

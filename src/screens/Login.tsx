@@ -4,7 +4,7 @@ import axios from 'axios';
 import * as toastr from "toastr";
 import './../../node_modules/toastr/toastr.scss'
 import * as utils from "../utils";
-import * as configs from './../config'
+import * as configs from './../config';
 
 class Login extends React.Component<any, any> {
   constructor(props: any) {
@@ -26,7 +26,7 @@ class Login extends React.Component<any, any> {
         NProgress.done();
         localStorage.setItem('auth', response.headers.authorization);
         localStorage.setItem('userId', tokens['custom:id']);
-        this.props.history.push('/home');
+        this.props.history.push('/dashboard');
       })
       .catch((error) => {
         NProgress.done();

@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Home, Login, Profile, Settings, Tasks } from './screens';
+import { Dashboard, Home, Login, Profile, Settings, Tasks } from './screens';
 import './style/index.scss';
 import { fetchTasks, fetchProfile } from './action/userSession';
-// import history from './history';
 
 class App extends React.Component<any, any> {
   public componentDidMount() {
@@ -19,9 +18,10 @@ class App extends React.Component<any, any> {
     return (
       <Router>
         <div>
-          <Route exact={true} path="/" component={Login}  />
+          <Route exact={true} path="/" component={Home}  />
           <Route path="/settings" component={Settings} />
-          <Route path="/home" component={Home} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/login" component={Login} />
           <Route path="/tasks" component={Tasks}/>
           <Route path="/profile" component={Profile} />
         </div>

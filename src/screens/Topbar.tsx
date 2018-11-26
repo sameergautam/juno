@@ -14,7 +14,7 @@ class Topbar extends React.Component<any, any> {
     event.preventDefault();
     localStorage.removeItem('auth');
     localStorage.removeItem('userId');
-    window.location.href = "/"
+    this.props.history.push('/');
   }
 
   public changeWorkMode(event: any) {
@@ -22,7 +22,7 @@ class Topbar extends React.Component<any, any> {
     if (workMode) {
       this.props.history.push('/tasks');
     } else {
-      this.props.history.push('/home');
+      this.props.history.push('/dashboard');
     }
   }
 
@@ -30,7 +30,7 @@ class Topbar extends React.Component<any, any> {
     const { workingMode } = this.props;
     return (
       <div className="topbar">
-        <div className="logo"><Link to="/home" title="Home"><img src="cf-logo-header.png" alt="CloudFactory" /></Link></div>
+        <div className="logo"><Link to="/" title="Home"><img src="cf-logo-header.png" alt="CloudFactory" /></Link></div>
         <div className="title">{this.props.title}</div>
         <div className="rightNav">
           <div>
