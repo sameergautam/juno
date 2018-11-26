@@ -9,6 +9,16 @@ const isDev = require('electron-is-dev');
 
 let mainWindow;
 let tray = null;
+const contextMenu = Menu.buildFromTemplate([
+  {
+    label: 'Hide',
+    click: (item) => {
+      show_hide_window(item, mainWindow);
+    }
+  },
+  {label: 'Toggle Developer Tools', role: 'toggleDevTools'},
+  {label: 'Quit', role: 'quit'}
+])
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -21,23 +31,25 @@ function createWindow() {
   });
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
   mainWindow.on('closed', () => mainWindow = null);
+
+  tray = new Tray(path.join(__dirname, 'sunTemplate.png'));
+  tray.setToolTip('Cloud Worker Hub')
+  tray.setContextMenu(contextMenu)
   //mainWindow.webContents.openDevTools();
 }
 
-const createTray = () => {
-  tray = new Tray(path.join(__dirname, 'sunTemplate.png'));
-  const contextMenu = Menu.buildFromTemplate([
-    {label: 'Item1', type: 'radio'},
-    {label: 'Item2', type: 'radio'},
-    {label: 'Item3', type: 'radio', checked: true},
-    {label: 'Item4', type: 'radio'}
-  ])
-  tray.setToolTip('This is my application.')
-  tray.setContextMenu(contextMenu)
+function show_hide_window(item) {
+  if (mainWindow.isVisible()) {
+    mainWindow.hide();
+    contextMenu.items[0].label = 'Show'
+  } else {
+    mainWindow.show();
+    contextMenu.items[0].label = 'Hide'
+  }  
+  tray.setContextMenu(Menu.buildFromTemplate(contextMenu.items));
 }
 
 app.on('ready', () => {
-  createTray()
   createWindow()
 })
 
