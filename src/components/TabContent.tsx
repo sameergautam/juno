@@ -57,6 +57,8 @@ class TabContent extends React.Component<any, any> {
         } else {
           loadUrl(tabId, `https://${value}`);
         }
+      } else if (value.indexOf('127.0.0.1') > -1 || value.indexOf('localhost') > -1) {
+        loadUrl(tabId, `http://${value}`);
       } else {
         loadUrl(tabId, `https://www.google.com.np/search?q=${value}`);
       }
