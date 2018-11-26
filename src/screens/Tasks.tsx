@@ -4,6 +4,7 @@ import './../style/Tasks.scss';
 import Topbar from './Topbar';
 import TabContent from '../components/TabContent';
 import { getWebViewTitle } from '../helper';
+import { switchWorkMode } from '../action/userSession';
 
 class Tasks extends React.Component<any, any> {
   public static getDerivedStateFromProps(nextProps: any, prevState: any) {
@@ -22,6 +23,10 @@ class Tasks extends React.Component<any, any> {
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleWebViewLoad = this.handleWebViewLoad.bind(this);
+  }
+
+  public componentDidMount() {
+    this.props.dispatch(switchWorkMode(true));
   }
 
   public handleSelect(evt: any) {
@@ -85,11 +90,11 @@ class Tasks extends React.Component<any, any> {
 
   public render() {
     const { workUrls, titles} = this.state;
-    const { loginOptions } = this.props;
+    const { loginOptions, history } = this.props;
     const nonEmptyUrls = workUrls.filter((url:string) =>  url.length > 0);
     return (
       <div>
-        <Topbar title="Tasks" />
+        <Topbar history={history} title="Tasks" />
         <div className="browser-window">
           <ul className="tab-navs">
             {
