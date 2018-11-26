@@ -1,16 +1,20 @@
-// import axios from 'axios';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Topbar from './Topbar';
 import './../style/Profile.scss';
+import { switchWorkMode } from 'src/action/userSession';
 
 export class Profile extends React.Component<any, any> {
+  public componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(switchWorkMode(false));
+  }
   public render() {
-    const { profile } = this.props;
+    const { profile, history } = this.props;
 
     return (
       <div>
-        <Topbar title="Profile" />
+        <Topbar history={history} title="Profile" />
         <div className="profile-widget">
           <div className="profile-details">
             <span><img src="avatar.png" alt="Avatar" width="200" /></span>

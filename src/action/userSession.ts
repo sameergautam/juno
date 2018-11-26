@@ -1,15 +1,14 @@
 import axios from 'axios';
-const config = require('./../config');
+import * as configs from './../config'
 
 export const fetchProfile = () =>
   (dispatch: any) =>
-    axios.get(config.HUB_SERVICE_URL + 'worker/' + localStorage.getItem('userId'), {
+    axios.get(configs.HUB_SERVICE_URL + 'worker/' + localStorage.getItem('userId'), {
       headers: {
         'Authorization': localStorage.getItem('auth'),
       }
     })
     .then((response) => {
-      console.log(response);
       dispatch({
         type: 'FETCH_PROFILE',
         payload: response.data
@@ -35,3 +34,9 @@ export const fetchTasks = () =>
     .catch((error) => {
       console.log(error);
     });
+
+export const switchWorkMode = (val: boolean) =>
+  ({
+    type: 'SWITCH_WORK_MODE',
+    payload: val,
+  });

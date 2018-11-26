@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Home, Login, Profile, Settings, Tasks } from './screens';
 import './style/index.scss';
 import { fetchTasks, fetchProfile } from './action/userSession';
+// import history from './history';
 
 class App extends React.Component<any, any> {
   public componentDidMount() {

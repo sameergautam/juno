@@ -2,21 +2,21 @@ import * as React from 'react';
 import './../style/App.scss';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchProfile } from '../action/userSession';
+import { fetchProfile, switchWorkMode, fetchTasks } from '../action/userSession';
 import Topbar from './Topbar';
-import { fetchTasks } from '../action/userSession';
 
 class Home extends React.Component<any, any> {
   public componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchTasks());
     dispatch(fetchProfile());
+    dispatch(switchWorkMode(false));
   }
 
   public render() {
     return (
       <div>
-        <Topbar title="Home" />
+        <Topbar history={this.props.history} title="Home" />
         <div className="wrapper profile-widget">
           <div className="profile-details">
             <span><img src="start-work.png" alt="Start Work" width="230" /></span><br />

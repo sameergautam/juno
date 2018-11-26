@@ -4,7 +4,7 @@ import axios from 'axios';
 import * as toastr from "toastr";
 import './../../node_modules/toastr/toastr.scss'
 import * as utils from "../utils";
-const config = require('./../config');
+import * as configs from './../config'
 
 class Login extends React.Component<any, any> {
   constructor(props: any) {
@@ -16,7 +16,7 @@ class Login extends React.Component<any, any> {
     event.preventDefault();
     NProgress.start();
     const data = new FormData(event.target);
-    axios.post(config.HUB_SERVICE_URL + 'auth', {
+    axios.post(configs.HUB_SERVICE_URL + 'auth', {
       username: data.get('username'),
       password: data.get('password')
      })
@@ -39,8 +39,8 @@ class Login extends React.Component<any, any> {
       <div className="login">
         <form onSubmit={this.logUser}>
           <img src="cf-separated-logo.png" alt="CloudFactory" width="300" className="logo" /><br />
-          <input type="text" name="username" id="username" placeholder="Username" required /><br />
-          <input type="password" name="password" id="password" placeholder="Password" required /><br />
+          <input type="text" name="username" id="username" placeholder="Username" required={true} /><br />
+          <input type="password" name="password" id="password" placeholder="Password" required={true} /><br />
           <button>Login</button>
         </form>
       </div>

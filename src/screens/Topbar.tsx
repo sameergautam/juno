@@ -1,12 +1,13 @@
 import * as React from 'react';
 import './../style/App.scss';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
 
 class Topbar extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.logout = this.logout.bind(this);
+    this.changeWorkMode = this.changeWorkMode.bind(this);
   }
 
   public logout(event: any) {
@@ -16,18 +17,28 @@ class Topbar extends React.Component<any, any> {
     window.location.href = "/"
   }
 
+  public changeWorkMode(event: any) {
+    const workMode = event.target.checked;
+    if (workMode) {
+      this.props.history.push('/tasks');
+    } else {
+      this.props.history.push('/home');
+    }
+  }
+
   public render() {
+    const { workingMode } = this.props;
     return (
       <div className="topbar">
         <div className="logo"><Link to="/home" title="Home"><img src="cf-logo-header.png" alt="CloudFactory" /></Link></div>
         <div className="title">{this.props.title}</div>
         <div className="rightNav">
           <div>
-          <label className="switch">
-            <input type="checkbox" />
-            <span className="slider round" />
-          </label>
-          <span style={{display: 'none'}}>Not Working</span>
+            <span className="switch_mode">{workingMode ? 'Working' : 'Not Working'}</span>
+            <label className="switch">
+              <input type="checkbox" checked={workingMode} onChange={this.changeWorkMode} />
+              <span className="slider round" />
+            </label>
           </div>
           <Link to="#" className="Notifications"><i className="fas fa-bell" /></Link>
           <Link to="/profile" className="Profile"><i className="fas fa-user" /></Link>
@@ -38,4 +49,9 @@ class Topbar extends React.Component<any, any> {
   }
 }
 
-export default Topbar;
+const mapStateToProps = (store: any) => {
+  return ({
+    workingMode: store.profileState.workingMode,
+  });
+}
+export default connect(mapStateToProps)(Topbar);

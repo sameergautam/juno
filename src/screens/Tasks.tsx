@@ -4,9 +4,10 @@ import './../style/Tasks.scss';
 import Topbar from './Topbar';
 import TabContent from '../components/TabContent';
 import { getWebViewTitle } from '../helper';
+import { switchWorkMode } from '../action/userSession';
 
 class Tasks extends React.Component<any, any> {
-  static getDerivedStateFromProps(nextProps: any, prevState: any) {
+  public static getDerivedStateFromProps(nextProps: any, prevState: any) {
     if(nextProps.tasks.length > prevState.workUrls.length) {
       return ({ workUrls: nextProps.tasks, titles: nextProps.taskTitles });
     }
@@ -24,6 +25,10 @@ class Tasks extends React.Component<any, any> {
     this.handleWebViewLoad = this.handleWebViewLoad.bind(this);
   }
 
+  public componentDidMount() {
+    this.props.dispatch(switchWorkMode(true));
+  }
+
   public handleSelect(evt: any) {
     this.setState({
       activeTab: evt.currentTarget.id
@@ -33,7 +38,7 @@ class Tasks extends React.Component<any, any> {
   public addTabs() {
     const workUrls = this.state.workUrls.concat('https://google.com');
     this.setState({
-      workUrls: workUrls,
+      workUrls,
       activeTab: `tab${workUrls.length}`,
     });
   }
@@ -46,13 +51,13 @@ class Tasks extends React.Component<any, any> {
   public removeTab(targetIndex: number) {
     const { workUrls, activeTab } = this.state;
     const currentIndex = Number(/\d+/.exec(activeTab)![0]) - 1;
-    const currentTabs: Array<number> = [];
+    const currentTabs: number[] = [];
     workUrls.map( (url: string, index: number) => {
-      if(url.length > 0) currentTabs.push(index);
+      if(url.length > 0) { currentTabs.push(index); } 
     });
 
     let activeIndex;
-    if (currentTabs.length === 1) return false;
+    if (currentTabs.length === 1) { return false; }
 
     if (currentIndex === targetIndex) {
       if(currentTabs.indexOf(targetIndex) === currentTabs.length - 1) {
@@ -66,7 +71,7 @@ class Tasks extends React.Component<any, any> {
     }
     workUrls.splice(targetIndex, 1, '');
     this.setState({
-      workUrls: workUrls,
+      workUrls,
       activeTab: `tab${activeIndex + 1}`
     });
     return true;
@@ -85,35 +90,35 @@ class Tasks extends React.Component<any, any> {
 
   public render() {
     const { workUrls, titles} = this.state;
-    const { loginOptions } = this.props;
+    const { loginOptions, history } = this.props;
     const nonEmptyUrls = workUrls.filter((url:string) =>  url.length > 0);
     return (
       <div>
-        <Topbar title="Tasks" />
+        <Topbar history={history} title="Tasks" />
         <div className="browser-window">
           <ul className="tab-navs">
             {
               workUrls.map( (url: string, index: number) => {
                 return url.length ? (
-                <div className="tab-nav-wrapper" style={{width: `${100 / nonEmptyUrls.length}%`}}>
+                <div className="tab-nav-wrapper" key={index} style={{width: `${100 / nonEmptyUrls.length}%`}}>
                   <li className={this.state.activeTab === `tab${index + 1}` ? 'active' : ''} id={`tab${index + 1}`} onClick={this.handleSelect}>{titles[index]}</li>
-                  <i className="fas fa-times-circle cross-tab" onClick={() => this.removeTab(index)}></i>
+                  <i className="fas fa-times-circle cross-tab" onClick={() => this.removeTab(index)} />
                 </div> ) : null
               })
             }
-            <button className="add-tab" onClick={() => this.addTabs()}><i className="fas fa-plus"></i></button>
+            <button className="add-tab" onClick={() => this.addTabs()}><i className="fas fa-plus" /></button>
           </ul>
           <div className="tab-body">
             { workUrls.map( (url: string, index: number) => {
               return url.length ? (
-                <div className={this.state.activeTab === `tab${index + 1}` ? 'active' : ''}>
-                <TabContent
-                  defaultUrl={url}
-                  tabId={`webview${index + 1}`}
-                  loginOptions={loginOptions}
-                  onWebViewLoad={this.handleWebViewLoad}
-                />
-              </div>) : null
+                <div key={index} className={this.state.activeTab === `tab${index + 1}` ? 'active' : ''}>
+                  <TabContent
+                    defaultUrl={url}
+                    tabId={`webview${index + 1}`}
+                    loginOptions={loginOptions}
+                    onWebViewLoad={this.handleWebViewLoad}
+                  />
+                </div>) : null
             })
             }
           </div>

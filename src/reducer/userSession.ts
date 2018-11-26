@@ -3,6 +3,7 @@ const user = {
   tasks: [],
   loginOptions: [],
   taskTitles: [],
+  workingMode: false,
 };
 
 const profileState = (state = user, action: any) => {
@@ -16,6 +17,9 @@ const profileState = (state = user, action: any) => {
       newState.tasks = action.payload.task_urls;
       newState.loginOptions = action.payload.login_options;
       newState.taskTitles = action.payload.task_urls.map(() => 'New Tab');
+      return newState;
+    case 'SWITCH_WORK_MODE':
+      newState.workingMode = action.payload;
       return newState;
     default: {
       return newState;

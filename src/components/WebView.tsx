@@ -25,7 +25,7 @@ class WebView extends React.Component<any, any> {
     const { id, className, url } = this.props;
     return (
       <div ref={this.container}>
-        <webview id={id} className={className} src={url}></webview>
+        <webview id={id} className={className} src={url} />
       </div>
     );
   }
