@@ -7,24 +7,41 @@
 ## Setting up
 
 - Install NVM
-  `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash`
+  ```
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+  ```
 
 - Install node and npm
-  `nvm install v10.13.0`
+  ```
+  nvm install v10.13.0
+  ```
 
-- Run `npm install`
+- Run 
+  ```
+  npm install
+  ```
 
 - Run on development server
-  `npm run electron-dev`
+  ```
+  npm run electron-dev
+  ```
 
 - Build for development environment
-  `npm run build`
+  ```
+  npm run build
+  ```
 
 - Build for production environment
-  `npm run build-prod`
+  ```
+  npm run build-prod
+  ```
 
 - Build package for mac distribution
-  `npm run compile-mac`
+  ```
+  npm run compile-mac
+  ```
 
 - Build package for windows distribution
-  `npm run compile-win`
+  ```
+  npm run compile-win
+  ```
