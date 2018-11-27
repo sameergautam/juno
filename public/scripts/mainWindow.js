@@ -84,7 +84,7 @@ const getMainWindow = async() => {
 	if (!mainWindow) {
 		mainWindow = new BrowserWindow(mainWindowOptions);
 		mainWindow.webContents.on('will-navigate', (event) => event.preventDefault());
-		mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
+		mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../../build/index.html')}`);
 		attachWindowStateHandling(mainWindow);
 	}
 
