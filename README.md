@@ -16,7 +16,10 @@
   nvm install v10.13.0
   ```
 
-- Run `npm install`
+- Run 
+  ```
+  npm install
+  ```
 
 - Run on development server
   ```
