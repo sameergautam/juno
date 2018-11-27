@@ -159,10 +159,5 @@
         "tsConfigFile": "/Users/aneetasharma/Projects/juno/tsconfig.test.json"
       }
     }
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
   }
 }
