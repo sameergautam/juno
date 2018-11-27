@@ -16,7 +16,13 @@ const contextMenu = Menu.buildFromTemplate([
       show_hide_window(item, mainWindow);
     }
   },
-  {label: 'Toggle Developer Tools', role: 'toggleDevTools'},
+  {
+    label: 'Toggle Developer Tools', 
+    role: 'toggleDevTools',
+    click: () => {
+      mainWindow.webContents.openDevTools();
+    }
+  },
   {label: 'Quit', role: 'quit'}
 ])
 
