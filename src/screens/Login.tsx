@@ -4,7 +4,7 @@ import axios from 'axios';
 import * as toastr from "toastr";
 import './../../node_modules/toastr/toastr.scss'
 import * as utils from "../utils";
-import * as configs from './../config';
+import { configs } from './../config'
 
 class Login extends React.Component<any, any> {
   constructor(props: any) {

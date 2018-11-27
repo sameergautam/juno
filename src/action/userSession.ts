@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as configs from './../config'
+import { configs } from '../config'
 
 export const fetchProfile = () =>
   (dispatch: any) =>

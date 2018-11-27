@@ -1,36 +1,15 @@
 const electron = require('electron');
+const windows = require('./scripts/mainWindow');
 const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
+const mainWindow = windows.getMainWindow;
 
-const path = require('path');
-const isDev = require('electron-is-dev');
+app.on('ready', async() => {
+  await mainWindow();
+});
 
-let mainWindow;
-
-function createWindow() {
-  mainWindow = new BrowserWindow({
-    height: 680,
-    webPreferences: {
-      sandbox: true,
-      webSecurity: false
-    },
-    width: 900
-  });
-  mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
-  mainWindow.on('closed', () => mainWindow = null);
-  //mainWindow.webContents.openDevTools();
-}
-
-app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
-  }
-});
-
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow();
   }
 });
