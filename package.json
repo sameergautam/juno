@@ -85,8 +85,8 @@
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron-dev-win": "concurrently \"SET BROWSER=none && npm start\" \"wait-on http://localhost:3000 && electron .\"",
-    "compile-mac": "npm run build && electron-builder -m -p always --publish=never",
-    "compile-win": "npm run build && electron-builder -w -p always"
+    "compile-mac": "npm run build && electron-builder -m --publish=never",
+    "compile-win": "npm run build && electron-builder -w --publish=never"
   },
   "build": {
     "appId": "com.juno.app",
