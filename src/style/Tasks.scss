@@ -272,6 +272,7 @@ webview {
     border: 1px solid #ddd;
     margin: 2px 2px 1px 10px;
     color: #aba4a4;
+    outline:none;
   }
   .tab-navs {
     margin: 0;
@@ -292,6 +293,7 @@ webview {
         overflow: hidden;
         white-space: nowrap;
         font-size: 12px;
+        height: 27px;
       }
     }
     .tab-nav-wrapper .active {
