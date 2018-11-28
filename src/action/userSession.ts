@@ -33,6 +33,9 @@ export const fetchTasks = () =>
     })
     .catch((error) => {
       console.log(error);
+      dispatch({
+        type: 'FETCH_TASKS_ON_ERROR',
+      })
     });
 
 export const switchWorkMode = (val: boolean) =>
