@@ -15,7 +15,7 @@ class TabContent extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      omniValue: '',
+      omniValue: this.props.defaultUrl,
       isBackBtnActive: false,
       isForwardBtnActive: false,
       isPageLoading: true,
@@ -86,7 +86,7 @@ class TabContent extends React.Component<any, any> {
     });
     this.props.onWebViewLoad(tabId);
     if (credentials) {
-      autoLogin(tabId);
+      autoLogin(tabId, credentials);
     }
   }
 
