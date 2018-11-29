@@ -10,13 +10,11 @@ Parameters:
     Default: build
   GitHubUsername:
     Type: String
-    Default: anaida07
+    Default: sameergautam
   GitHubToken:
     Description: Name of Parameter Store parameter that stores the GitHubToken
-    # Type: 'AWS::SSM::Parameter::Value<String>'
-    Type: String
-    # Default: xxxxxx
-    Default: 4ea49bc38c11683d04deeb6c30d0e77df8643fda
+    Type: 'AWS::SSM::Parameter::Value<String>'
+    Default: '/sameer/cloudformation-ecs/githubtoken'
 
 Resources:
   CodePipelineRole:
