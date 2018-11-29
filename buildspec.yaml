@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo "Installer build started on `date`"
+      - docker build .
+  post_build:
+    commands:
+      # - printf '{"Parameters":{"CODEBUILD_BUILD_ID":"%s"}}' $CODEBUILD_BUILD_ID > parameters.json             
+      - rm -vrf src target/workscheduling-*-sources.jar
+      - cp -v $PWD/target/workscheduling-*.jar $PWD/target/workscheduling.jar
+      - echo OptaPlanner build completed on `date`
+artifacts:
+  type: zip
+  files:
+     - 'dist/*'
+  discard-paths: yes

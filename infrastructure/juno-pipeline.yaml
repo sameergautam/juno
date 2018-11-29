@@ -1,0 +1,201 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CodePipeline for Cloud Worker Hub
+
+Parameters:
+  GitHubRepo:
+    Type: String
+    Default: juno
+  GitHubBranch:
+    Type: String
+    Default: build
+  GitHubUsername:
+    Type: String
+    Default: anaida07
+  GitHubToken:
+    Description: Name of Parameter Store parameter that stores the GitHubToken
+    # Type: 'AWS::SSM::Parameter::Value<String>'
+    Type: String
+    # Default: xxxxxx
+    Default: 4ea49bc38c11683d04deeb6c30d0e77df8643fda
+
+Resources:
+  CodePipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Resource:
+                  - !Join ['', ['arn:aws:s3:::', !ImportValue BucketCodePipeline, '/*']]
+                Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:GetBucketVersioning
+              - Resource: '*'
+                Effect: Allow
+                Action:
+                  - codebuild:StartBuild
+                  - codebuild:BatchGetBuilds
+                  - iam:PassRole
+              - Effect: Allow
+                Action:
+                  - cloudformation:CreateChangeSet
+                  - cloudformation:CreateStack
+                  - cloudformation:CreateUploadBucket
+                  - cloudformation:DeleteStack
+                  - cloudformation:DeleteChangeSet
+                  - cloudformation:Describe*
+                  - cloudformation:List*
+                  - cloudformation:UpdateStack
+                  - cloudformation:ValidateTemplate
+                  - cloudformation:ExecuteChangeSet
+                Resource: '*'
+
+  CloudFormationDeployRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: ['sts:AssumeRole']
+          Effect: Allow
+          Principal:
+            Service: [cloudformation.amazonaws.com]
+        Version: '2012-10-17'
+      Path: /
+      Policies:
+        - PolicyName: !Join ['-', [!Ref 'AWS::StackName', 'CloudFormationPolicy']]
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                  - 's3:*'
+                  - 'iam:*'
+                Effect: Allow
+                Resource: '*'
+
+  HubInstallerStore:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
+    Properties:
+      BucketName: hub-installer-store
+      Tags:
+        - Key: Service
+          Value: JunoCodePipeline
+        - Key: Project
+          Value: Juno
+
+  CodePipeline:
+      Type: AWS::CodePipeline::Pipeline
+      Properties:
+        RoleArn: !GetAtt CodePipelineRole.Arn
+        ArtifactStore:
+          Type: S3
+          Location: !ImportValue BucketCodePipeline
+        Stages:
+          - Name: Source
+            Actions:
+              - Name: GithubSource
+                ActionTypeId:
+                  Category: Source
+                  Owner: ThirdParty
+                  Version: "1"
+                  Provider: GitHub
+                Configuration:
+                  Owner: !Ref GitHubUsername
+                  Repo: !Ref GitHubRepo
+                  Branch: !Ref GitHubBranch
+                  OAuthToken: !Ref GitHubToken
+                OutputArtifacts:
+                  - Name: SourceOutput
+
+          - Name: BuildExecutable
+            Actions:
+              - Name: WindowsExecutable
+                ActionTypeId:
+                  Category: Build
+                  Owner: AWS
+                  Version: '1'
+                  Provider: CodeBuild
+                InputArtifacts:
+                  - Name: SourceOutput
+                OutputArtifacts:
+                  - Name: BuildOutput
+                Configuration:
+                  ProjectName: !Ref CodeBuildProject
+
+          - Name: CloudFormationDeploy
+            Actions:
+              - Name: Deploy
+                InputArtifacts:
+                  - Name: BuildOutput
+                ActionTypeId:
+                  Category: Deploy
+                  Owner: AWS
+                  Version: '1'
+                  Provider: CloudFormation
+                Configuration:
+                  StackName: optaplanner-deploy-stack
+                  ActionMode: REPLACE_ON_FAILURE #CREATE_UPDATE
+                  Capabilities: CAPABILITY_NAMED_IAM
+                  TemplatePath: BuildOutput::optaplanner-stack.yaml
+                  # TemplateConfiguration: BuildOutput::parameters.json
+                  RoleArn: !GetAtt CloudFormationDeployRole.Arn
+                  ParameterOverrides: |
+                    {
+                      "BUILDURL" : { "Fn::GetArtifactAtt" : ["BuildOutput", "URL"]}
+                    }
+
+  CodeBuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Artifacts:
+        Type: CODEPIPELINE
+      Source:
+        Type: CODEPIPELINE
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/java:openjdk-8
+        Type: LINUX_CONTAINER
+        # EnvironmentVariables:
+        #   - Name: REPOSITORY_URI
+        #     Value: !ImportValue BooksApiRepoURI
+      Name: !Ref AWS::StackName
+      ServiceRole: !Ref CodeBuildIAMRole
+
+  CodeBuildIAMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Join ['-', [!Ref 'AWS::StackName', 'CodeBuild']]
+      Path: "/"
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - codebuild.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Policies:
+        - PolicyName: !Join ['-', [!Ref 'AWS::StackName', 'CodeBuildRolePolicy']]
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:*
+                  - s3:*
+                Resource: '*'
+# Outputs:
+  
