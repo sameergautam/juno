@@ -130,7 +130,7 @@ Resources:
                 InputArtifacts:
                   - Name: SourceOutput
                 OutputArtifacts:
-                  - Name: BuildOutput
+                  - Name: WindowsBuildOutput
                 Configuration:
                   ProjectName: !Ref CodeBuildProjectWindows
               - Name: LinuxExecutable
@@ -142,7 +142,7 @@ Resources:
                 InputArtifacts:
                   - Name: SourceOutput
                 OutputArtifacts:
-                  - Name: BuildOutput
+                  - Name: LinuxBuildOutput
                 Configuration:
                   ProjectName: !Ref CodeBuildProjectLinux
 
