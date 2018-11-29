@@ -1,9 +1,6 @@
-FROM amazonlinux:2
-
-RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -
-RUN yum install -y nodejs
+FROM electronuserland/builder:wine
 
 WORKDIR /opt/juno
 COPY . .
 RUN npm install
-RUN npm run compile-mac
+RUN npm run compile-win
