@@ -1,13 +1,11 @@
 version: 0.2
 
 phases:
-  install:
-    commands:
-      - amazon-linux-extras install -y docker
   build:
     commands:
       - echo "Installer build started on `date`"
-      - docker build .
+      - npm install
+      - npm run compile-win
   post_build:
     commands:
       - echo "Pushing artifacts"
