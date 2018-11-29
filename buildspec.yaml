@@ -7,10 +7,8 @@ phases:
       - docker build .
   post_build:
     commands:
-      # - printf '{"Parameters":{"CODEBUILD_BUILD_ID":"%s"}}' $CODEBUILD_BUILD_ID > parameters.json             
-      - rm -vrf src target/workscheduling-*-sources.jar
-      - cp -v $PWD/target/workscheduling-*.jar $PWD/target/workscheduling.jar
-      - echo OptaPlanner build completed on `date`
+      - echo "Pushing artifacts"
+      - aws s3 ls 
 artifacts:
   type: zip
   files:
