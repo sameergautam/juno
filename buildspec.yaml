@@ -1,6 +1,9 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - amazon-linux-extras install -y docker
   build:
     commands:
       - echo "Installer build started on `date`"
