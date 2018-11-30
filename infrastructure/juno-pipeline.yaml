@@ -219,7 +219,8 @@ Resources:
             build:
               commands:
                 - echo "Installer build started on `date`"
-                - npm run compile-linux
+                # - npm run compile-linux
+                - npm run build
             post_build:
               commands:
                 - echo "Pushing artifacts"
