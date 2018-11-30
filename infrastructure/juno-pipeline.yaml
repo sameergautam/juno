@@ -88,7 +88,7 @@ Resources:
     Type: AWS::S3::Bucket
     DeletionPolicy: Delete
     Properties:
-      BucketName: !Join ['-', ['hub-installer-store', !Sub 'AWS::AccountId']]
+      BucketName: !Sub hub-installer-store-${AWS::AccountId}
       Tags:
         - Key: Service
           Value: JunoCodePipeline
