@@ -88,7 +88,7 @@ Resources:
     Type: AWS::S3::Bucket
     DeletionPolicy: Delete
     Properties:
-      BucketName: hub-installer-store
+      BucketName: !Join ['-', ['hub-installer-store', !Sub 'AWS::AccountId']]
       Tags:
         - Key: Service
           Value: JunoCodePipeline
@@ -189,11 +189,11 @@ Resources:
             post_build:
               commands:
                 - echo "Pushing artifacts"
-                - aws s3 ls 
+                - aws s3 cp  
           artifacts:
             type: zip
             files:
-              - 'dist/*'
+              - 'dist/**/*'
             discard-paths: yes
       Environment:
         ComputeType: BUILD_GENERAL1_SMALL
@@ -227,7 +227,7 @@ Resources:
           artifacts:
             type: zip
             files:
-              - 'dist/*'
+              - 'dist/**/*'
             discard-paths: yes
       Environment:
         ComputeType: BUILD_GENERAL1_SMALL
