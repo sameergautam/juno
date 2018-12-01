@@ -175,7 +175,7 @@ Resources:
         Type: CODEPIPELINE
       Source:
         Type: CODEPIPELINE
-        BuildSpec: |
+        BuildSpec: !Sub |
           version: 0.2
           phases:
             install:
@@ -189,7 +189,7 @@ Resources:
             post_build:
               commands:
                 - echo "Pushing artifacts"
-                - aws s3 cp  
+                - aws s3 cp dist/Cloud\ Worker\ Hub\ Setup\ 0.1.0.exe s3://${HubInstallerStore}/Windows/
           artifacts:
             type: zip
             files:
@@ -209,7 +209,7 @@ Resources:
         Type: CODEPIPELINE
       Source:
         Type: CODEPIPELINE
-        BuildSpec: |
+        BuildSpec: !Sub |
           version: 0.2
           phases:
             install:
@@ -223,7 +223,7 @@ Resources:
             post_build:
               commands:
                 - echo "Pushing artifacts"
-                - aws s3 ls 
+                - - aws s3 cp dist/Cloud\ Worker\ Hub\ 0.1.0.AppImage s3://${HubInstallerStore}/Linux/
           artifacts:
             type: zip
             files:
