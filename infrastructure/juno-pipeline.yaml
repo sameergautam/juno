@@ -223,7 +223,7 @@ Resources:
             post_build:
               commands:
                 - echo "Pushing artifacts"
-                - - aws s3 cp dist/Cloud\ Worker\ Hub\ 0.1.0.AppImage s3://${HubInstallerStore}/Linux/
+                - aws s3 cp dist/Cloud\ Worker\ Hub\ 0.1.0.AppImage s3://${HubInstallerStore}/Linux/
           artifacts:
             type: zip
             files:
