@@ -89,6 +89,8 @@ Resources:
     DeletionPolicy: Delete
     Properties:
       BucketName: !Sub hub-installer-store-${AWS::AccountId}
+      VersioningConfiguration:
+        Status: Enabled
       Tags:
         - Key: Service
           Value: JunoCodePipeline
